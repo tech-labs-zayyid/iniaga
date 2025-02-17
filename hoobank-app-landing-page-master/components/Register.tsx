@@ -8,7 +8,7 @@ const RegisterForm: React.FC = () => {
     email: "",
   });
 
-  const handleChange = (e) => {
+  const handleChange = (e: any) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -16,7 +16,7 @@ const RegisterForm: React.FC = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
     console.log("Form submitted:", formData);
   };
