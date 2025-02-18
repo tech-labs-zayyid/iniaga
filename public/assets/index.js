@@ -26,6 +26,8 @@ import people03 from "./people03.png";
 import web from "./web.png";
 import agen from "./agen_rec.png";
 import logo1 from "./crop_logo.png";
+import anhar from "./anhar.jpg";
+import boby from "./boby.jpg";
 
 export {
   airbnb,
@@ -56,4 +58,6 @@ export {
   web,
   agen,
   logo1,
+  anhar,
+  boby,
 };
