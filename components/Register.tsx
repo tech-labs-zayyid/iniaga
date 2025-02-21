@@ -13,7 +13,7 @@ const FormComponent = () => {
     fullname: "",
     noWa: "",
     email: "",
-    payment: "",
+    payment: 0,
   });
   const [isAvailable, setIsAvailable] = useState<boolean | null>(null);
   const [isUsernameAvailable, setIsUsernameAvailable] = useState<
@@ -28,16 +28,13 @@ const FormComponent = () => {
   const [noWaError, setNoWaError] = useState("");
   const [emailError, setEmailError] = useState("");
 
+  const paymentList: Record<string, number> = {
+    starter: 200000,
+    basic: 300000,
+    pro: 2000000,
+  };
   const searchParams = useSearchParams();
   const paket = searchParams.get("paket");
-
-  const paymentList = [
-    {
-      starter: 200000,
-      basic: 300000,
-      pro: 2000000,
-    },
-  ];
 
   const existingUsernames = ["romdon", "eko", "admin", "test"];
   const existingNoWa = ["081395294204", "08129876543"];
@@ -88,10 +85,10 @@ const FormComponent = () => {
   }, [formData.email, emailError]);
 
   useEffect(() => {
-    if (paket && paymentList[0][paket]) {
+    if (paket && paket in paymentList) {
       setFormData((prevData) => ({
         ...prevData,
-        payment: paymentList[0][paket], // Update payment sesuai paket yang dipilih
+        payment: paymentList[paket as keyof typeof paymentList], // 🔹 Type Assertion
       }));
     }
   }, [paket]);
