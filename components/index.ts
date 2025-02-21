@@ -9,6 +9,7 @@ import Footer from "./Footer";
 import Testimonials from "./Testimonials";
 import Hero from "./Hero";
 import RegisterForm from "./Register";
+import PriceList from "./PriceList";
 export {
   Navbar,
   Billing,
@@ -21,4 +22,5 @@ export {
   Testimonials,
   Hero,
   RegisterForm,
+  PriceList,
 };
