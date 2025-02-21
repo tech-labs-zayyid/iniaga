@@ -104,6 +104,19 @@ const FormComponent = () => {
         setNoWaError("");
       }
     }
+    if (name === "username") {
+      const usernameRegex = /^[a-zA-Z0-9]{1,25}$/;
+
+      if (value.length > 20) {
+        setUsernameError("Username maksimal 20 karakter");
+      } else if (!usernameRegex.test(value)) {
+        setUsernameError(
+          "Username hanya boleh huruf dan angka (tanpa spasi atau simbol)"
+        );
+      } else {
+        setUsernameError(""); // Reset error jika valid
+      }
+    }
 
     setFormData((prevData) => ({
       ...prevData,
@@ -151,10 +164,10 @@ const FormComponent = () => {
 
   const formatRupiah = (amount: number) => {
     return new Intl.NumberFormat("id-ID", {
-      style: "currency",
-      currency: "IDR",
       minimumFractionDigits: 0,
-    }).format(amount);
+    })
+      .format(amount)
+      .replace(/\./g, ","); // Ubah titik ke koma (opsional, sesuai format lokal)
   };
 
   return (
@@ -174,6 +187,7 @@ const FormComponent = () => {
               onChange={handleChange}
               className="w-full p-3 border rounded-md focus:ring-2 focus:ring-blue-500"
               placeholder="Enter username"
+              maxLength={25}
               required
             />
             {usernameError && (
@@ -181,10 +195,18 @@ const FormComponent = () => {
             )}
             {formData.username && (
               <div className="mt-2 flex items-center space-x-2 text-gray-600">
-                <p>Domain:</p>
-                <p className="text-blue-600 font-semibold">
-                  {formData.username}.iniaga.com
-                </p>
+                {usernameError ? (
+                  <p className="text-blue-600 font-semibold">
+                    {formData.username}.iniaga.com
+                  </p>
+                ) : (
+                  <>
+                    <p>Domain:</p>
+                    <p className="text-blue-600 font-semibold">
+                      {formData.username}.iniaga.com
+                    </p>
+                  </>
+                )}
 
                 {/* Menampilkan ikon berdasarkan ketersediaan domain */}
                 {isAvailable !== null &&
@@ -263,17 +285,21 @@ const FormComponent = () => {
           {/** URL with "Rp" Prefix */}
           <div>
             <label className="text-gray-700">Payment</label>
-
-            <input
-              disabled
-              type="text"
-              name="payment"
-              value={formatRupiah(formData.payment)}
-              onChange={handleChange}
-              className="w-full pl-10 pr-4 p-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Enter email"
-              required
-            />
+            <div className="relative mb-6">
+              <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-lg">
+                Rp
+              </span>
+              <input
+                disabled
+                type="text"
+                name="payment"
+                value={formatRupiah(formData.payment)}
+                onChange={handleChange}
+                className="w-full pl-10 pr-4 p-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Enter email"
+                required
+              />
+            </div>
           </div>
 
           {/** Submit Button */}
