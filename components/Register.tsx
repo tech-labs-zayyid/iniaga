@@ -2,6 +2,11 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
 
+declare global {
+  interface Window {
+    snap: any;
+  }
+}
 const FormComponent = () => {
   const [formData, setFormData] = useState({
     username: "",
