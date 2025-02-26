@@ -1,23 +1,33 @@
 "use client";
 import { useState } from "react";
-import { close, logo, logo1, menu } from "@/public/assets";
-import { navLinks } from "@/constants";
 import Image from "next/image";
+import Link from 'next/link'
+import { close, logo1, menu } from "@/public/assets";
+import { navLinks } from "@/constants";
 
 const Navbar: React.FC = () => {
-  const [toggle, setToggle] = useState(false);
+  const [toggle, setToggle] = useState<boolean>(false);
+
   return (
     <nav className="w-full flex py-6 justify-between items-center navbar">
-      <Image src={logo1} alt="Iniaga" width={124} height={32} />
+      <Image
+        src={logo1}
+        priority
+        alt="Iniaga"
+        width={124}
+        height={32}
+      />
       <ul className="list-none sm:flex hidden justify-end items-center flex-1">
         {navLinks.map((nav, index) => (
           <li
             key={nav.id}
-            className={`font-poppins font-normal cursor-pointer text-[16px] text-white ${
+            className={`font-poppins font-normal cursor-pointer text-[16px] text-black ${
               index === navLinks.length - 1 ? "mr-0" : "mr-10"
             }`}
           >
-            <a href={`#${nav.id}`}>{nav.title}</a>
+            <Link href={`#${nav.id}`}>
+              {nav.title}
+            </Link>
           </li>
         ))}
       </ul>
@@ -42,7 +52,9 @@ const Navbar: React.FC = () => {
                   index === navLinks.length - 1 ? "mr-0" : "mb-4"
                 }`}
               >
-                <a href={`#${nav.id}`}>{nav.title}</a>
+                <Link href={`#${nav.id}`}>
+                  {nav.title}
+                </Link>
               </li>
             ))}
           </ul>
