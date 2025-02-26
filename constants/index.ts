@@ -36,10 +36,6 @@ export const navLinks = [
     id: "clients",
     title: "Clients",
   },
-  {
-    id: "clients",
-    title: "Clients",
-  },
 ];
 
 export const features = [
@@ -81,6 +77,7 @@ export const feedback = [
     name: "Boby Honda",
     title: "Sales Honda Pasteur",
     img: boby,
+    date: 'Aug 10, 2024',
   },
   {
     id: "feedback-2",
@@ -89,6 +86,7 @@ export const feedback = [
     name: "Anhar",
     title: "Sales Tunas Toyota",
     img: anhar,
+    date: 'Aug 10, 2024',
   },
   {
     id: "feedback-3",
@@ -97,6 +95,16 @@ export const feedback = [
     name: "Ria",
     title: "Sales Hyundai Daan Mogot",
     img: people01,
+    date: 'Aug 10, 2024',
+  },
+  {
+    id: "feedback-4",
+    content:
+      "Saya merasa lebih produktif dan siap untuk meraih kesuksesan lebih besar.",
+    name: "Ria",
+    title: "Sales Hyundai Daan Mogot",
+    img: people01,
+    date: 'Aug 10, 2024',
   },
 ];
 
@@ -104,17 +112,17 @@ export const stats = [
   {
     id: "stats-1",
     title: "User Active",
-    value: "3800+",
+    value: "100+",
   },
   {
     id: "stats-2",
     title: "Trusted by Company",
-    value: "230+",
+    value: "78+",
   },
   {
     id: "stats-3",
     title: "Transaction",
-    value: "$230M+",
+    value: "200+",
   },
 ];
 

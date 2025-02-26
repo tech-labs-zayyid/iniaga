@@ -84,7 +84,7 @@ const PriceList: React.FC = () => {
                     d="M5 13l4 4L19 7"
                   />
                 </svg>
-                <span>Domain/Url web default</span>
+                <span>Domain Pribadi</span>
               </li>
               <li className="flex items-center">
                 <svg
@@ -199,7 +199,7 @@ const PriceList: React.FC = () => {
                     d="M5 13l4 4L19 7"
                   />
                 </svg>
-                <span>Setting Domain/Url sendiri</span>
+                <span>Domain Pribadi</span>
               </li>
               <li className="flex items-center">
                 <svg
@@ -314,7 +314,7 @@ const PriceList: React.FC = () => {
                     d="M5 13l4 4L19 7"
                   />
                 </svg>
-                <span>Setting Domain/Url sendiri</span>
+                <span>Domain Pribadi</span>
               </li>
               <li className="flex items-center">
                 <svg
