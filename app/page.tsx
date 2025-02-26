@@ -1,4 +1,5 @@
 "use client";
+import { useEffect } from "react";
 import styles from "@/styles/style";
 import {
   Navbar,
@@ -12,9 +13,16 @@ import {
   Clients,
   CTA,
   Footer,
+  PriceList,
 } from "@/components";
 
 const Home: React.FC = () => {
+  useEffect(() => {
+    fetch("https://date.nager.at/api/v3/PublicHolidays/2025/ID")
+      .then((response) => response.json())
+      .then((data) => console.log(data)) // Menampilkan daftar hari libur
+      .catch((error) => console.error("Error:", error));
+  });
   return (
     <>
       <div className="w-full overflow-hidden">
@@ -34,7 +42,8 @@ const Home: React.FC = () => {
             <Business />
             <Billing />
             {/* <CardDeal /> */}
-            <RegisterForm />
+            <PriceList />
+            {/* <RegisterForm /> */}
             <Testimonials />
             {/* <Clients /> */}
             <CTA />

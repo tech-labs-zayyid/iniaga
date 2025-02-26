@@ -1,4 +1,6 @@
 import "@/styles/globals.css";
+import Head from "next/head";
+import { close, logo, logo1, menu } from "@/public/assets";
 
 export const metadata = {
   title: "Iniaga - Modern Landing Page",
@@ -36,9 +38,46 @@ export const metadata = {
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en">
-      <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </head>
+      <Head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "Iniaga",
+              url: "https://iniaga.vercel.app",
+              logo: "https://pandawara.group/assets/icons/ic-pandawara.svg",
+              sameAs: [
+                "https://www.instagram.com/pandawaragroup/",
+                "https://www.tiktok.com/@pandawaragroup?lang=id-ID",
+              ],
+              department: [
+                {
+                  "@type": "SiteNavigationElement",
+                  name: "About Us",
+                  url: "https://iniaga.vercel.app",
+                },
+                {
+                  "@type": "SiteNavigationElement",
+                  name: "Programs",
+                  url: "https://iniaga.vercel.app",
+                },
+                {
+                  "@type": "SiteNavigationElement",
+                  name: "Collaborations",
+                  url: "https://iniaga.vercel.app",
+                },
+                {
+                  "@type": "SiteNavigationElement",
+                  name: "Contribute",
+                  url: "https://iniaga.vercel.app",
+                },
+              ],
+            }),
+          }}
+        />
+      </Head>
       <body>{children}</body>
     </html>
   );
