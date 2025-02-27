@@ -1,6 +1,6 @@
 const PriceList: React.FC = () => {
   return (
-    <section className="bg-gray-900 py-12">
+    <section className="bg-gray-900 rounded-2xl py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold text-white sm:text-5xl">
@@ -12,7 +12,7 @@ const PriceList: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          <div className="bg-gray-800 rounded-lg shadow-lg p-6 transform hover:scale-105 transition duration-300">
+          <div className="bg-gray-800 flex flex-col rounded-lg shadow-lg p-6 transform hover:scale-105 transition duration-300">
             <div className="mb-8">
               <h3 className="text-2xl font-semibold text-white">Starter</h3>
               <p className="mt-4 text-gray-400">
@@ -84,7 +84,7 @@ const PriceList: React.FC = () => {
                     d="M5 13l4 4L19 7"
                   />
                 </svg>
-                <span>Domain/Url web default</span>
+                <span>Domain Pribadi</span>
               </li>
               <li className="flex items-center">
                 <svg
@@ -123,7 +123,7 @@ const PriceList: React.FC = () => {
             </ul>
             <a
               href="/register?paket=starter"
-              className="block w-full py-3 px-6 text-center rounded-md text-white font-medium bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600"
+              className="mt-auto block w-full py-3 px-6 text-center rounded-md text-white font-medium bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600"
             >
               Get Started
             </a>
@@ -199,7 +199,7 @@ const PriceList: React.FC = () => {
                     d="M5 13l4 4L19 7"
                   />
                 </svg>
-                <span>Setting Domain/Url sendiri</span>
+                <span>Domain Pribadi</span>
               </li>
               <li className="flex items-center">
                 <svg
@@ -314,7 +314,7 @@ const PriceList: React.FC = () => {
                     d="M5 13l4 4L19 7"
                   />
                 </svg>
-                <span>Setting Domain/Url sendiri</span>
+                <span>Domain Pribadi</span>
               </li>
               <li className="flex items-center">
                 <svg

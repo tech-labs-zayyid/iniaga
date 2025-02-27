@@ -1,27 +1,50 @@
+'use client';
+
 import { feedback } from "@/constants";
+import Image from 'next/image';
 import styles from "@/styles/style";
 import FeedbackCard from "./FeedbackCard";
+
 const Testimonials: React.FC = () => (
-  <section
-    id="clients"
-    className={`${styles.paddingY} ${styles.flexCenter} flex-col relative`}
-  >
-    <div className="absolute z-[0] w-[60%] h-[60%] -right-[50%] rounded-full blue__gradient" />
-    <div className="w-full flex justify-between items-center md:flex-row flex-col sm:mb-10 mb-6 relative z-[1]">
-      <h1 className={styles.heading2}>
-        What people are <br className="sm:block hidden" /> saying about us.
-      </h1>
-      <div className="w-full md:mt-0 mt-6">
-        <p className={`${styles.paragraph} text-left max-w-[450px]`}>
-          Semua yang kamu butuhkan untuk merekrut agen dan meningkatkan
-          penjualan bisnis kamu, di mana saja.
-        </p>
+  <section className="mb-14">
+    <h1 className={styles.heading2}>Testimonies</h1>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <div className="bg-gray-200 rounded-lg overflow-hidden">
+          <Image 
+            src={feedback[0].img} 
+            alt="Main article" 
+            width={600} 
+            height={350} 
+            className="w-full h-auto md:h-[350px] object-cover"
+          />
+        </div>
+        <div className="mt-4">
+          <p className="text-sm text-gray-500">{feedback[0].title}</p>
+          <h3 className="text-lg font-semibold mt-1">{feedback[0].content}</h3>
+          <p className="text-xs text-gray-400 mt-1">{feedback[0].name} • {feedback[0].date}</p>
+        </div>
       </div>
-    </div>
-    <div className="flex flex-wrap sm:justify-start justify-center w-full feedback-container relative z-[1]">
-      {feedback.map((card) => (
-        <FeedbackCard key={card.id} {...card} />
-      ))}
+      <div className="space-y-4">
+        {feedback.slice(1).map((article, index) => (
+          <div key={index} className="flex gap-4 items-center">
+            <div className="bg-gray-200 rounded-lg overflow-hidden w-[100px] h-[100px] flex-shrink-0">
+              <Image 
+                src={article.img} 
+                alt={article.title} 
+                width={100} 
+                height={100} 
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div>
+              <p className="text-sm text-gray-500">{article.title}</p>
+              <h4 className="text-sm font-semibold my-2">{article.content}</h4>
+              <p className="text-xs text-gray-400">{article.name} • {article.date}</p>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   </section>
 );
