@@ -10,11 +10,11 @@ import {
   binance,
   coinbase,
   dropbox,
-  send,
-  shield,
-  star,
+  icWideMarket,
+  icUpseo,
+  icInterview,
   arrowUp,
-  discount,
+  icMarketing,
   boby,
   anhar,
 } from "@/public/assets";
@@ -41,28 +41,28 @@ export const navLinks = [
 export const features = [
   {
     id: "feature-1",
-    icon: star,
+    icon: icInterview,
     title: "Rekrut Agen",
     content:
       "Dengan aplikasi ini, sales dapat merekrut agen dengan cepat, memberikan akses ke tools dan materi promosi, serta melacak perkembangan agen dalam satu platform.",
   },
   {
     id: "feature-2",
-    icon: discount,
+    icon: icMarketing,
     title: "Tingkatkan Penjualan",
     content:
       "Aplikasi ini membantu sales untuk memantau kinerja penjualan, memberikan insentif kepada agen, dan mengoptimalkan strategi penjualan secara real-time.",
   },
   {
     id: "feature-3",
-    icon: send,
+    icon: icWideMarket,
     title: "Jangkauan Pasar Lebih Luas",
     content:
       "Akses pasar yang lebih luas dengan aplikasi yang dilengkapi fitur SEO dan alat pemasaran digital, membantu sales untuk mencapai audiens yang lebih banyak.",
   },
   {
     id: "feature-4",
-    icon: shield,
+    icon: icUpseo,
     title: "Optimasi SEO untuk Penjualan",
     content:
       "Bergabung dengan aplikasi ini memungkinkan sales meningkatkan SEO produknya, memperbesar kemungkinan ditemukan oleh calon agen dan pelanggan.",

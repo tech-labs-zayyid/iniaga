@@ -14,6 +14,7 @@ import {
   CTA,
   Footer,
   PriceList,
+  Copyright,
 } from "@/components";
 
 const Home: React.FC = () => {
@@ -66,10 +67,13 @@ const Home: React.FC = () => {
             <PriceList />
             {/* <RegisterForm /> */}
             {/* <Clients /> */}
-            <CTA />
-            <Footer />
           </div>
         </div>
+        <CTA />
+        <div className={`${styles.boxWidth}`}>
+          <Footer />
+        </div>
+        <Copyright />
       </div>
     </>
   );
