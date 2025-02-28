@@ -69,11 +69,13 @@ const Home: React.FC = () => {
             {/* <Clients /> */}
           </div>
         </div>
-        <CTA />
-        <div className={`${styles.boxWidth}`}>
-          <Footer />
+        <div className={`bg-white ${styles.paddingX} ${styles.flexStart} mb-14`}>
+          <div className={`${styles.boxWidth}`}>
+            <CTA />
+          </div>
         </div>
-        <Copyright />
+        <Footer />
+        {/* <Copyright /> */}
       </div>
     </>
   );

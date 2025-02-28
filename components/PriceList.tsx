@@ -125,7 +125,7 @@ const PriceList: React.FC = () => {
               href="/register?paket=starter"
               className="mt-auto block w-full py-3 px-6 text-center rounded-md text-white font-medium bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600"
             >
-              Get Started
+              Subscribe Now
             </a>
           </div>
 
@@ -240,7 +240,7 @@ const PriceList: React.FC = () => {
               href="/register?paket=basic"
               className="block w-full py-3 px-6 text-center rounded-md text-white font-medium bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600"
             >
-              Get Started
+              Subscribe Now
             </a>
           </div>
 
@@ -355,7 +355,7 @@ const PriceList: React.FC = () => {
               href="/register?paket=pro"
               className="block w-full py-3 px-6 text-center rounded-md text-white font-medium bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600"
             >
-              Get Started
+              Subscribe Now
             </a>
           </div>
         </div>

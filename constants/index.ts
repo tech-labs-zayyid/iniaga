@@ -44,28 +44,28 @@ export const features = [
     icon: icInterview,
     title: "Rekrut Agen",
     content:
-      "Dengan aplikasi ini, sales dapat merekrut agen dengan cepat, memberikan akses ke tools dan materi promosi, serta melacak perkembangan agen dalam satu platform.",
+      "Aplikasi ini mempermudah sales merekrut agen, menyediakan tools, dan melacak perkembangan dalam satu platform.",
   },
   {
     id: "feature-2",
     icon: icMarketing,
     title: "Tingkatkan Penjualan",
     content:
-      "Aplikasi ini membantu sales untuk memantau kinerja penjualan, memberikan insentif kepada agen, dan mengoptimalkan strategi penjualan secara real-time.",
+      "Sales dapat memantau penjualan, memberi insentif, dan mengoptimalkan strategi secara real-time.",
   },
   {
     id: "feature-3",
     icon: icWideMarket,
     title: "Jangkauan Pasar Lebih Luas",
     content:
-      "Akses pasar yang lebih luas dengan aplikasi yang dilengkapi fitur SEO dan alat pemasaran digital, membantu sales untuk mencapai audiens yang lebih banyak.",
+      "Jangkau lebih banyak audiens dengan fitur SEO dan alat pemasaran digital.",
   },
   {
     id: "feature-4",
     icon: icUpseo,
     title: "Optimasi SEO untuk Penjualan",
     content:
-      "Bergabung dengan aplikasi ini memungkinkan sales meningkatkan SEO produknya, memperbesar kemungkinan ditemukan oleh calon agen dan pelanggan.",
+      "Tingkatkan visibilitas produk dan peluang ditemukan oleh agen serta pelanggan.",
   },
 ];
 
