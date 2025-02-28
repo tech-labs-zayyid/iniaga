@@ -1,32 +1,24 @@
-"use client";
-
 import { close, logo1, menu } from "@/public/assets";
-import { useEffect, useState } from "react";
 import Image from "@node_modules/next/image";
 
-export default function Confirmation() {
-  const [mail, setMail] = useState<any>("");
-  useEffect(() => {
-    setMail(localStorage.getItem("emai"));
-  }, []);
-
-  console.log(mail, "mail");
+export default function PaymentFailed() {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100 p-6">
       <div className="bg-white shadow-lg rounded-2xl overflow-hidden max-w-md w-full">
-        {/* Header Full-Width */}
-        <div
-          className="w-full flex justify-center p-4"
-          style={{ backgroundColor: "black" }}
-        >
-          <Image src={logo1} alt="Company Logo" className="h-12 w-auto" />
+        {/* Header Full-Width dengan Logo */}
+        <div className="bg-red-600 w-full h-20 flex items-center justify-center">
+          <Image
+            src={logo1}
+            alt="Company Logo"
+            className="h-12 w-auto" // Atur tinggi agar proporsional
+          />
         </div>
 
         {/* Konten Utama */}
         <div className="p-6 text-center">
-          {/* Ikon Sukses */}
+          {/* Ikon Gagal */}
           <div className="flex justify-center mb-4">
-            <div className="w-16 h-16 bg-green-100 text-green-600 flex items-center justify-center rounded-full">
+            <div className="w-16 h-16 bg-red-100 text-red-600 flex items-center justify-center rounded-full">
               <svg
                 className="w-10 h-10"
                 fill="none"
@@ -37,22 +29,22 @@ export default function Confirmation() {
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  d="M5 13l4 4L19 7"
+                  d="M6 18L18 6M6 6l12 12"
                 ></path>
               </svg>
             </div>
           </div>
 
-          {/* Pesan Sukses */}
+          {/* Pesan Gagal */}
           <h2 className="text-2xl font-bold text-gray-800">
-            Pembayaran Berhasil!
+            Pembayaran Gagal!
           </h2>
           <p className="text-gray-600 mt-2">
-            Terima kasih telah melakukan pembayaran. Detail pembayaran telah
-            dikirim ke email Anda.
+            Maaf, transaksi pembayaran Anda tidak berhasil. Silakan coba lagi
+            atau hubungi layanan pelanggan.
           </p>
 
-          {/* Detail Pembayaran */}
+          {/* Detail Transaksi */}
           <div className="flex justify-center">
             <div className="bg-gray-50 p-4 mt-4 rounded-lg text-left">
               <p className="text-gray-800 font-medium">
@@ -62,7 +54,7 @@ export default function Confirmation() {
                 💳 <strong>Metode:</strong> Transfer Bank
               </p>
               <p className="text-gray-800 font-medium">
-                💰 <strong>Total:</strong> Rp1.500.000
+                ❌ <strong>Status:</strong> Gagal
               </p>
             </div>
           </div>
@@ -71,19 +63,16 @@ export default function Confirmation() {
           <div className="flex gap-4 mt-6">
             <a
               href="/"
-              style={{ backgroundColor: "black" }}
-              className="w-full hover:bg-blue-700 text-white py-2 px-4 rounded-lg transition shadow-md"
+              className="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-4 rounded-lg transition shadow-md"
             >
               Kembali ke Home
             </a>
-            {mail && (
-              <a
-                href={`mailto:${mail}`}
-                className="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-4 rounded-lg transition shadow-md"
-              >
-                Cek Email
-              </a>
-            )}
+            <a
+              href="/retry-payment"
+              className="w-full bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-lg transition shadow-md"
+            >
+              Coba Lagi
+            </a>
           </div>
         </div>
       </div>

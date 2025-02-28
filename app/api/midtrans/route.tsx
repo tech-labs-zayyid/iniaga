@@ -9,7 +9,7 @@ export async function POST(req: NextRequest) {
     // Inisialisasi Midtrans Snap
     let snap = new midtransClient.Snap({
       isProduction: false, // Ubah ke true jika production
-      serverKey: "SB-Mid-server-HKeSO-0JmDGgM8-fmnl2L7Mu" as string, // Ambil dari .env
+      serverKey: "SB-Mid-server-dOVRGe6R75qVV-s8ogKdZrt-" as string, // Ambil dari .env
     });
 
     let parameter = {

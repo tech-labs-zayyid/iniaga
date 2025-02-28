@@ -128,7 +128,7 @@ const FormComponent = () => {
     // Tambahkan Midtrans Snap Script
     const script = document.createElement("script");
     script.src = "https://app.sandbox.midtrans.com/snap/snap.js";
-    script.setAttribute("data-client-key", "SB-Mid-client-IsVWseZeqsy32t_D");
+    script.setAttribute("data-client-key", "SB-Mid-client-3B3nT-4COo92eu5T");
     document.body.appendChild(script);
   }, []);
 
@@ -151,6 +151,7 @@ const FormComponent = () => {
 
       if (data.token) {
         window.snap.pay(data.token);
+        localStorage.setItem("emai", formData.email);
       }
     } catch (error) {
       console.error("Pembayaran gagal:", error);
