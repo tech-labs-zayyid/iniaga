@@ -28,6 +28,10 @@ import agen from "./agen_rec.png";
 import logo1 from "./crop_logo.png";
 import anhar from "./anhar.jpg";
 import boby from "./boby.jpg";
+import icInterview from "./ic-interview.svg";
+import icMarketing from "./ic-marketing.svg";
+import icWideMarket from './ic-wide-market.svg'
+import icUpseo from './ic-upseo.svg'
 
 export {
   airbnb,
@@ -60,4 +64,8 @@ export {
   logo1,
   anhar,
   boby,
+  icInterview,
+  icMarketing,
+  icWideMarket,
+  icUpseo
 };

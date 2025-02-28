@@ -10,6 +10,8 @@ import Testimonials from "./Testimonials";
 import Hero from "./Hero";
 import RegisterForm from "./Register";
 import PriceList from "./PriceList";
+import Copyright from "./Copyright"
+
 export {
   Navbar,
   Billing,
@@ -23,4 +25,5 @@ export {
   Hero,
   RegisterForm,
   PriceList,
+  Copyright
 };

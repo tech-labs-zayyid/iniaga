@@ -1,66 +1,52 @@
 import styles from "@/styles/style";
-import { logo, logo1 } from "@/public/assets";
+import { logo1 } from "@/public/assets";
 import { footerLinks, socialMedia } from "@/constants";
 import Image from "next/image";
 
 const Footer: React.FC = () => (
-  <section className={`${styles.flexCenter} ${styles.paddingY} flex-col`}>
-    <div className={`${styles.flexStart} md:flex-row flex-col mb-8 w-full`}>
-      <div className="flex-1 flex flex-col justify-start mr-10">
-        <Image
-          src={logo1}
-          alt="Iniaga"
-          className="w-[266px] h-[72px] object-contain"
-        />
-        <p className={`${styles.paragraph} mt-4 max-w-[310px]`}>
-          The Next generation sales tools.
+  <footer className="bg-gray-900 text-white py-12 px-4 flex justify-center">
+    <div className={`${styles.boxWidth}`}>
+      <div className="container mx-auto flex flex-col md:flex-row md:justify-between">
+        {/* Bagian Logo & Deskripsi */}
+        <div className="md:w-1/3 flex flex-col">
+          <Image src={logo1} alt="Iniaga" className="w-[200px] object-contain mb-4" />
+          <p className="text-gray-400 text-sm max-w-[310px]">
+            The Next Generation Sales Tools.
+          </p>
+        </div>
+
+        {/* Bagian Link */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 md:w-2/3 mt-6 md:mt-0">
+          {footerLinks.map((footerLink) => (
+            <div key={footerLink.id} className="min-w-[150px]">
+              <h4 className="font-semibold text-lg text-white">{footerLink.title}</h4>
+              <ul className="mt-3 space-y-2">
+                {footerLink.links.map((link) => (
+                  <li key={link.name} className="text-gray-400 text-sm hover:text-white cursor-pointer transition duration-300">
+                    {link.name}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Bagian Sosial Media */}
+      <div className="border-t border-gray-700 mt-8 pt-6 text-center">
+        <div className="flex justify-center space-x-6">
+          {socialMedia.map((social) => (
+            <a key={social.id} href={social.link} target="_blank" rel="noopener noreferrer">
+              <Image src={social.icon} alt={social.id} width={24} height={24} className="cursor-pointer hover:opacity-75 transition duration-300" />
+            </a>
+          ))}
+        </div>
+        <p className="text-gray-500 text-sm mt-4">
+          © {new Date().getFullYear()} Iniaga. All Rights Reserved.
         </p>
       </div>
-      <div className="flex-[1.5] w-full flex flex-row justify-between flex-wrap md:mt-0 mt-10">
-        {footerLinks.map((footerLink) => (
-          <div
-            key={footerLink.id}
-            className="flex flex-col ss:my-0 my-4 mix-w-[150px"
-          >
-            <h4
-              className={`font-poppins font-medium text-[18px] leading-[27px] text-white`}
-            >
-              {footerLink.title}
-            </h4>
-            <ul className="list-none mt-4">
-              {footerLink.links.map((link, index) => (
-                <li
-                  key={link.name}
-                  className={`font-poppins font-normal text-[16px] leading-[24px] text-dimWhite hover:text-secondary cursor-pointer ${
-                    index !== footerLink.links.length - 1 ? "mb-4" : "mb-0"
-                  }`}
-                >
-                  {link.name}
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
     </div>
-    <div className="w-full flex justify-between items-center md:flex-row flex-col pt-6 border-t-[1px] border-t-[#3F3E45]">
-      <p className="font-poppins font-normal text-center text-[18px] leading-[27px] text-white">
-        2025 Iniaga. All Rights Reserved.
-      </p>
-      <div className="flex flex-row md:mt-0 mt-6">
-        {socialMedia.map((social, index) => (
-          <Image
-            src={social.icon}
-            key={social.id}
-            alt={social.id}
-            className={`w-[21px] h-[21px] object-contain cursor-pointer ${
-              index !== socialMedia.length - 1 ? "mr-6" : "mr-0"
-            }`}
-          />
-        ))}
-      </div>
-    </div>
-  </section>
+  </footer>
 );
 
 export default Footer;
