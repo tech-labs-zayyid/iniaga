@@ -6,9 +6,8 @@ import Image from "@node_modules/next/image";
 
 export default function Confirmation() {
   const [mail, setMail] = useState<any>("");
-  const token = localStorage.getItem("token");
 
-  const handleGet = async () => {
+  const handleGet = async (token: string) => {
     const auth = "SB-Mid-server-dOVRGe6R75qVV-s8ogKdZrt-" + ":";
     const base64EncodedAuth = btoa(auth);
     try {
@@ -38,8 +37,9 @@ export default function Confirmation() {
 
   useEffect(() => {
     setMail(localStorage.getItem("emai"));
-    handleGet();
-  }, [token]);
+    const token = localStorage.getItem("token");
+    handleGet(token as string);
+  }, [localStorage]);
 
   console.log(mail, "mail");
   return (
