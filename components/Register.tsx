@@ -139,7 +139,9 @@ const FormComponent = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          order_id: `ORDER-${Date.now()}`,
+          order_id: `ORDER-${Date.now()}-${Math.floor(
+            1000 + Math.random() * 9000
+          )}`,
           gross_amount: formData?.payment, // Harga dalam IDR
           customer_name: formData?.fullname,
           email: formData?.email,
@@ -148,10 +150,11 @@ const FormComponent = () => {
       });
 
       const data = await response.json();
-
+      console.log(data, "data");
       if (data.token) {
         window.snap.pay(data.token);
         localStorage.setItem("emai", formData.email);
+        localStorage.setItem("token", data.token);
       }
     } catch (error) {
       console.error("Pembayaran gagal:", error);

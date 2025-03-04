@@ -6,9 +6,40 @@ import Image from "@node_modules/next/image";
 
 export default function Confirmation() {
   const [mail, setMail] = useState<any>("");
+  const token = localStorage.getItem("token");
+
+  const handleGet = async () => {
+    const auth = "SB-Mid-server-dOVRGe6R75qVV-s8ogKdZrt-" + ":";
+    const base64EncodedAuth = btoa(auth);
+    try {
+      const response = await fetch(
+        `https://api.sandbox.midtrans.com/v2/${token}/status`,
+        {
+          method: "GET", // or 'POST' depending on your use case
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Basic ${base64EncodedAuth}`, // Replace with your actual AUTH_STRING
+          },
+          mode: "no-cors",
+        }
+      );
+
+      const data = await response.json();
+      console.log(data, "data");
+
+      if (data) {
+        localStorage.setItem("obj", JSON.stringify(data));
+      }
+    } catch (error) {
+      console.error("Pembayaran gagal:", error);
+    }
+  };
+
   useEffect(() => {
     setMail(localStorage.getItem("emai"));
-  }, []);
+    handleGet();
+  }, [token]);
 
   console.log(mail, "mail");
   return (
