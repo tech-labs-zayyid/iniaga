@@ -150,11 +150,11 @@ const FormComponent = () => {
       });
 
       const data = await response.json();
-      console.log(data, "data");
+      console.log(data.token, "data");
       if (data.token) {
+        localStorage.setItem("token", data.token);
         window.snap.pay(data.token);
         localStorage.setItem("emai", formData.email);
-        localStorage.setItem("token", data.token);
       }
     } catch (error) {
       console.error("Pembayaran gagal:", error);
