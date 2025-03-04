@@ -2,32 +2,42 @@
 
 import { close, logo1, menu } from "@/public/assets";
 import { useEffect, useState } from "react";
-import Image from "@node_modules/next/image";
+import Image from "next/image"; // Correct import for Image
+
+interface PaymentResponse {
+  token?: string;
+  // Define other fields based on the API response structure
+}
 
 export default function Confirmation() {
-  const [mail, setMail] = useState<any>("");
+  const [mail, setMail] = useState<string | null>("");
 
   const handleGet = async (token: string) => {
-    const auth = "SB-Mid-server-dOVRGe6R75qVV-s8ogKdZrt-" + ":";
-    const base64EncodedAuth = btoa(auth);
+    const auth = "SB-Mid-server-dOVRGe6R75qVV-s8ogKdZrt-" + ":"; // Your authorization string
+    const base64EncodedAuth = btoa(auth); // Base64 encode the authorization string
+
     try {
       const response = await fetch(
         `https://api.sandbox.midtrans.com/v2/${token}/status`,
         {
-          method: "GET", // or 'POST' depending on your use case
+          method: "GET", // Use GET or POST depending on your use case
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            Authorization: `Basic ${base64EncodedAuth}`, // Replace with your actual AUTH_STRING
+            Authorization: `Basic ${base64EncodedAuth}`, // Include the encoded auth string
           },
-          mode: "no-cors",
         }
       );
 
-      const data = await response.json();
+      // Check if the response is successful
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data: PaymentResponse = await response.json();
       console.log(data, "data");
 
-      if (data) {
+      if (data.token) {
         localStorage.setItem("obj", JSON.stringify(data));
       }
     } catch (error) {
@@ -36,12 +46,16 @@ export default function Confirmation() {
   };
 
   useEffect(() => {
-    setMail(localStorage.getItem("emai"));
+    // Fix typo here (from 'emai' to 'email')
+    setMail(localStorage.getItem("email"));
     const token = localStorage.getItem("token");
-    handleGet(token as string);
-  }, [localStorage]);
+    if (token) {
+      handleGet(token); // Ensure the token exists before calling handleGet
+    }
+  }, []); // Empty dependency array for useEffect, as localStorage is not a dependency
 
   console.log(mail, "mail");
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100 p-6">
       <div className="bg-white shadow-lg rounded-2xl overflow-hidden max-w-md w-full">
@@ -53,9 +67,9 @@ export default function Confirmation() {
           <Image src={logo1} alt="Company Logo" className="h-12 w-auto" />
         </div>
 
-        {/* Konten Utama */}
+        {/* Main Content */}
         <div className="p-6 text-center">
-          {/* Ikon Sukses */}
+          {/* Success Icon */}
           <div className="flex justify-center mb-4">
             <div className="w-16 h-16 bg-green-100 text-green-600 flex items-center justify-center rounded-full">
               <svg
@@ -74,7 +88,7 @@ export default function Confirmation() {
             </div>
           </div>
 
-          {/* Pesan Sukses */}
+          {/* Success Message */}
           <h2 className="text-2xl font-bold text-gray-800">
             Pembayaran Berhasil!
           </h2>
@@ -83,7 +97,7 @@ export default function Confirmation() {
             dikirim ke email Anda.
           </p>
 
-          {/* Detail Pembayaran */}
+          {/* Payment Details */}
           <div className="flex justify-center">
             <div className="bg-gray-50 p-4 mt-4 rounded-lg text-left">
               <p className="text-gray-800 font-medium">
@@ -98,7 +112,7 @@ export default function Confirmation() {
             </div>
           </div>
 
-          {/* Tombol Aksi */}
+          {/* Action Buttons */}
           <div className="flex gap-4 mt-6">
             <a
               href="/"
