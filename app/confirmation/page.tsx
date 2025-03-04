@@ -18,7 +18,7 @@ export default function Confirmation() {
 
     try {
       const response = await fetch(
-        `https://api.sandbox.midtrans.com/v2/${token}/status`,
+        `https://app.sandbox.midtrans.com/snap/v1/transactions/${token}/status`,
         {
           method: "GET", // Use GET or POST depending on your use case
           headers: {
