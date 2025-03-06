@@ -128,7 +128,7 @@ const FormComponent = () => {
     // Tambahkan Midtrans Snap Script
     const script = document.createElement("script");
     script.src = "https://app.sandbox.midtrans.com/snap/snap.js";
-    script.setAttribute("data-client-key", "SB-Mid-client-IsVWseZeqsy32t_D");
+    script.setAttribute("data-client-key", "SB-Mid-client-3B3nT-4COo92eu5T");
     document.body.appendChild(script);
   }, []);
 
@@ -139,7 +139,9 @@ const FormComponent = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          order_id: `ORDER-${Date.now()}`,
+          order_id: `ORDER-${Date.now()}-${Math.floor(
+            1000 + Math.random() * 9000
+          )}`,
           gross_amount: formData?.payment, // Harga dalam IDR
           customer_name: formData?.fullname,
           email: formData?.email,
@@ -148,9 +150,11 @@ const FormComponent = () => {
       });
 
       const data = await response.json();
-
+      console.log(data.token, "data");
       if (data.token) {
+        localStorage.setItem("token", data.token);
         window.snap.pay(data.token);
+        localStorage.setItem("emai", formData.email);
       }
     } catch (error) {
       console.error("Pembayaran gagal:", error);

@@ -45,7 +45,11 @@ const Home: React.FC = () => {
   return (
     <>
       <div className="w-full overflow-hidden">
-        <div className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 flex justify-center ${isScrolled ? "bg-white shadow-md shadow-gray-300" : "bg-transparent"}`}>
+        <div
+          className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 flex justify-center ${
+            isScrolled ? "shadow-md shadow-gray-300 bg-black" : "bg-black"
+          }`}
+        >
           <div className={`${styles.paddingX} ${styles.flexCenter} w-full`}>
             <div className={`${styles.boxWidth}`}>
               <Navbar />
@@ -69,7 +73,9 @@ const Home: React.FC = () => {
             {/* <Clients /> */}
           </div>
         </div>
-        <div className={`bg-white ${styles.paddingX} ${styles.flexStart} mb-14`}>
+        <div
+          className={`bg-white ${styles.paddingX} ${styles.flexStart} mb-14`}
+        >
           <div className={`${styles.boxWidth}`}>
             <CTA />
           </div>
