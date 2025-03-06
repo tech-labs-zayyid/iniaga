@@ -13,11 +13,17 @@ const PriceList: React.FC = () => {
 
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
           <div className="bg-gray-800 flex flex-col rounded-lg shadow-lg p-6 transform hover:scale-105 transition duration-300">
-            <div className="mb-8">
-              <h3 className="text-2xl font-semibold text-white">Starter</h3>
-              <p className="mt-4 text-gray-400">
-                Get started with our basic features.
-              </p>
+            <div className="mb-8 flex gap-3">
+              <div className="w-24 h-24 bg-green-400 rounded-2xl relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-12 h-12 bg-green-300 rounded-3xl"></div>
+                <div className="absolute bottom-0 left-0 w-14 h-14 bg-green-300 rounded-lg"></div>
+              </div>
+              <div>
+                <h3 className="text-2xl font-semibold text-white">Starter</h3>
+                <p className="mt-4 text-gray-400">
+                  Get started with our basic features.
+                </p>
+              </div>
             </div>
             <div className="mb-8">
               <div className="flex items-center space-x-2">
@@ -130,11 +136,14 @@ const PriceList: React.FC = () => {
           </div>
 
           <div className="bg-gray-800 rounded-lg shadow-lg p-6 transform hover:scale-105 transition duration-300">
-            <div className="mb-8">
-              <h3 className="text-2xl font-semibold text-white">Basic</h3>
-              <p className="mt-4 text-gray-400">
-                Perfect for small businesses and startups.
-              </p>
+            <div className="mb-8 flex gap-3">
+              <div className="w-24 h-24 bg-orange-400 rounded-2xl relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-12 h-12 bg-orange-300 rounded-3xl"></div>
+                <div className="absolute bottom-0 left-0 w-14 h-14 bg-orange-300 rounded-lg"></div>
+              </div>
+              <div>
+                <h3 className="text-2xl font-semibold text-white">Basic</h3>
+              </div>
             </div>
             <div className="mb-8">
               <div className="flex items-center space-x-2">
@@ -245,7 +254,11 @@ const PriceList: React.FC = () => {
           </div>
 
           <div className="bg-gray-800 rounded-lg shadow-lg p-6 transform hover:scale-105 transition duration-300">
-            <div className="mb-8">
+            <div className="mb-8 flex gap-3">
+              <div className="w-24 h-24 bg-blue-400 rounded-2xl relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-12 h-12 bg-blue-300 rounded-3xl"></div>
+                <div className="absolute bottom-0 left-0 w-14 h-14 bg-blue-300 rounded-lg"></div>
+              </div>
               <h3 className="text-2xl font-semibold text-white">Pro</h3>
               <p className="mt-4 text-gray-400">
                 Perfect for small businesses and startups.

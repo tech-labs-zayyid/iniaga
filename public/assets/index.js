@@ -26,6 +26,7 @@ import people03 from "./people03.png";
 import web from "./web.png";
 import agen from "./agen_rec.png";
 import logo1 from "./crop_logo.png";
+import logoDark from "./ic-logo-dark.png";
 import anhar from "./anhar.jpg";
 import boby from "./boby.jpg";
 import icInterview from "./ic-interview.svg";
@@ -67,5 +68,6 @@ export {
   icInterview,
   icMarketing,
   icWideMarket,
-  icUpseo
+  icUpseo,
+  logoDark
 };

@@ -47,7 +47,7 @@ const Home: React.FC = () => {
       <div className="w-full overflow-hidden">
         <div
           className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 flex justify-center ${
-            isScrolled ? "shadow-md shadow-gray-300 bg-black" : "bg-black"
+            isScrolled ? "shadow-md shadow-gray-300 bg-white" : "transparent"
           }`}
         >
           <div className={`${styles.paddingX} ${styles.flexCenter} w-full`}>

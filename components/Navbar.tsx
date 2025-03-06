@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { close, logo1, menu } from "@/public/assets";
+import { close, logoDark, menu } from "@/public/assets";
 import { navLinks } from "@/constants";
 
 const Navbar: React.FC = () => {
@@ -10,13 +10,13 @@ const Navbar: React.FC = () => {
 
   return (
     <nav className="w-full flex py-6 justify-between items-center navbar relative">
-      <Image src={logo1} priority alt="Iniaga" width={124} height={32} />
+      <Image src={logoDark} priority alt="Iniaga" width={124} height={32} />
 
       <ul className="list-none sm:flex hidden justify-center items-center flex-1">
         {navLinks.map((nav, index) => (
           <li
             key={nav.id}
-            className={`font-poppins font-normal cursor-pointer text-[16px] text-white ${
+            className={`font-poppins font-normal cursor-pointer text-[16px] text-black ${
               index === navLinks.length - 1 ? "mr-0" : "mr-10"
             }`}
           >
