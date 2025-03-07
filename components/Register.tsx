@@ -132,9 +132,41 @@ const FormComponent = () => {
     document.body.appendChild(script);
   }, []);
 
+  const handleRegister = async () => {
+    try {
+      const response = await fetch("/api/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: formData.username,
+          name: formData.fullname,
+          whatsapp_number: formData.noWa,
+          email: formData.email,
+          password: "defaultpassword123",
+          role: "sales",
+          sales_id: "",
+          image_url: ""
+        }),
+      });
+  
+      const data = await response.json();
+  
+      if (response.ok) {
+        alert("Registrasi berhasil!");
+        console.log("User registered:", data);
+      } else {
+        alert(`Registrasi gagal: ${data.message}`);
+      }
+    } catch (error) {
+      console.error("Error saat registrasi:", error);
+      alert("Terjadi kesalahan saat registrasi.");
+    }
+  };
+
   const handlePayment = async () => {
     // setLoading(true);
     try {
+      await handleRegister()
       const response = await fetch("/api/midtrans", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
