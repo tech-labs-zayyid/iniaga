@@ -2,7 +2,8 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { close, logoDark, menu } from "@/public/assets";
+import styles, { component } from "@styles/style";
+import { close, logoDark, logo1, menu } from "@/public/assets";
 import { navLinks } from "@/constants";
 
 const Navbar: React.FC = () => {
@@ -10,13 +11,13 @@ const Navbar: React.FC = () => {
 
   return (
     <nav className="w-full flex py-6 justify-between items-center navbar relative">
-      <Image src={logoDark} priority alt="Iniaga" width={124} height={32} />
+      <Image src={logo1} priority alt="Iniaga" width={134} height={40} />
 
       <ul className="list-none sm:flex hidden justify-center items-center flex-1">
         {navLinks.map((nav, index) => (
           <li
             key={nav.id}
-            className={`font-poppins font-normal cursor-pointer text-[16px] text-black ${
+            className={`font-poppins font-normal cursor-pointer text-white ${
               index === navLinks.length - 1 ? "mr-0" : "mr-10"
             }`}
           >
@@ -28,21 +29,22 @@ const Navbar: React.FC = () => {
       <div className="hidden sm:flex">
         <Link
           href="/register"
-          className="bg-black text-white px-6 py-2 rounded-full font-semibold text-sm shadow-md hover:bg-white hover:text-black transition"
+          className={`ss:w-full ${component.btnPrimary}`}
         >
           Register
         </Link>
       </div>
 
       <div className="sm:hidden flex flex-1 justify-end items-center">
-        <Image
-          src={toggle ? close : menu}
-          alt="menu"
-          className="object-contain"
-          width={28}
-          height={28}
-          onClick={() => setToggle((prev) => !prev)}
-        />
+        <button className="rounded-xl p-4 bg-[#247bfe]" onClick={() => setToggle((prev) => !prev)}>
+          <Image
+            src={toggle ? close : menu}
+            alt="menu"
+            className="object-contain"
+            width={28}
+            height={28}
+          />
+        </button>
         <div
           className={`${
             toggle ? "flex" : "hidden"

@@ -34,6 +34,14 @@ import icMarketing from "./ic-marketing.svg";
 import icWideMarket from './ic-wide-market.svg'
 import icUpseo from './ic-upseo.svg'
 
+// SCREENS
+import icScreen1 from './screens/screen-1.png'
+import icScreen2 from './screens/screen-2.png'
+import icScreen3 from './screens/screen-3.png'
+
+// ICONS
+import icArrowRight from './icons/ic-arrow-right-up.png'
+
 export {
   airbnb,
   bill,
@@ -69,5 +77,9 @@ export {
   icMarketing,
   icWideMarket,
   icUpseo,
-  logoDark
+  logoDark,
+  icScreen1,
+  icScreen2,
+  icScreen3,
+  icArrowRight
 };

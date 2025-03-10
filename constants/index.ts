@@ -185,7 +185,7 @@ export const footerLinks = [
     links: [
       {
         name: "Our Partner",
-        link: "https://www.Iniaga.com/our-partner/",
+        link: "/comming-soon",
       },
       {
         name: "Become a Partner",

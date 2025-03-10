@@ -21,13 +21,6 @@ const Home: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
-    fetch("https://date.nager.at/api/v3/PublicHolidays/2025/ID")
-      .then((response) => response.json())
-      .then((data) => console.log(data)) // Menampilkan daftar hari libur
-      .catch((error) => console.error("Error:", error));
-  }, []);
-
-  useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 50) {
         setIsScrolled(true);
@@ -43,47 +36,49 @@ const Home: React.FC = () => {
   }, []);
 
   return (
-    <>
-      <div className="w-full overflow-hidden">
-        <div
-          className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 flex justify-center ${
-            isScrolled ? "shadow-md shadow-gray-300 bg-white" : "transparent"
-          }`}
-        >
-          <div className={`${styles.paddingX} ${styles.flexCenter} w-full`}>
-            <div className={`${styles.boxWidth}`}>
-              <Navbar />
-            </div>
-          </div>
+    <div className="w-full overflow-hidden bg-[#171717] bg-[url(https://cdn.prod.website-files.com/62953ab463d9335a094b424b/62962ca34836cd068a0e950a_bg-grid-techkit-template.svg)]">
+      <div
+        className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 flex justify-center ${
+          isScrolled ? "bg-[#171717]" : "transparent"
+        }`}
+      >
+        <div className={`${styles.paddingX} ${styles.marginXauto} ${styles.boxWidth}`}>
+          <Navbar />
         </div>
-        <div className={`bg-white ${styles.flexStart} pt-20`}>
-          <div className={`${styles.boxWidth}`}>
-            <Hero />
-          </div>
+      </div>
+      <div className={`${styles.flexStart} pt-20`}>
+        <div className={`${styles.boxWidth}`}>
+          <Hero />
         </div>
-        <div className={`bg-white ${styles.paddingX} ${styles.flexStart}`}>
+      </div>
+      <div className="bg-white rounded-[50px] pt-14 ss:pt-[50px]">
+        <div id="wrapperContent" className={`${styles.paddingX}`}>
           <div className={`${styles.boxWidth}`}>
             <Stats />
             <Business />
-            {/* <Billing /> */}
-            {/* <CardDeal /> */}
-            <Testimonials />
-            <PriceList />
-            {/* <RegisterForm /> */}
-            {/* <Clients /> */}
           </div>
         </div>
-        <div
-          className={`bg-white ${styles.paddingX} ${styles.flexStart} mb-14`}
-        >
-          <div className={`${styles.boxWidth}`}>
-            <CTA />
-          </div>
-        </div>
-        <Footer />
-        {/* <Copyright /> */}
       </div>
-    </>
+      <div id="wrapperContent" className={`${styles.paddingX} ${styles.flexStart}`}>
+        <div className={`${styles.boxWidth}`}>
+          {/* <Billing /> */}
+          {/* <CardDeal /> */}
+          <Testimonials />
+          <PriceList />
+          {/* <RegisterForm /> */}
+          {/* <Clients /> */}
+        </div>
+      </div>
+      <div
+        className={`bg-white ${styles.paddingX} ${styles.flexStart} mb-14`}
+      >
+        <div className={`${styles.boxWidth}`}>
+          <CTA />
+        </div>
+      </div>
+      <Footer />
+      {/* <Copyright /> */}
+    </div>
   );
 };
 

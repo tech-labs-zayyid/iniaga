@@ -1,35 +1,83 @@
+import { useEffect, useState } from "react";
 import Image from "next/image";
-import styles from "@/styles/style";
-import { discount, web } from "@/public/assets";
-import GetStarted from "./GetStarted";
+import Link from "next/link";
+import styles, { component } from "@/styles/style";
+import { icScreen1, icScreen2, icScreen3, icArrowRight } from "@/public/assets";
 
-const Hero: React.FC = () => (
-  <section id="home" className={`flex md:flex-row flex-col ${styles.paddingY}`}>
-    <div className={`flex-1 ${styles.flexStart} flex-col xl:px-0 sm:px-16 px-6`}>
-      <div className="flex flex-row justify-between items-center w-full">
-        <h1 className="flex-1 font-poppins font-semibold ss:text-[72px] text-[52px] text-black ss:leading-[100px] leading-[75px]">
-          Penjualan Optimal <br className="sm:block hidden" />{" "}dengan{" "}
-          <span className="text-gray-500">Teknologi</span>{" "}
-        </h1>
+const Hero: React.FC = () => {
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  return (
+    <section id="home" className={`text-center sm:pt-16 pt-6`}>
+      <div className={`flex-1 ${styles.flexCenter} flex-col xl:px-0 sm:px-16 px-[20px]`}>
+        <div className="flex flex-row justify-between items-center w-full">
+          <h1 className="flex-1 font-poppins font-semibold ss:text-[72px] text-[35px] text-white ss:leading-[100px] leading-[45px]">
+            Penjualan Optimal <br className="sm:block hidden" />
+            <span className="text-[#247bfe]">Teknologi</span> Masa Kini
+          </h1>
+        </div>
+        <p className={`${styles.paragraph} mt-5`}>
+          Tim ahli kami siap membantu Anda menemukan aplikasi penjualan terbaik sesuai kebutuhan bisnis.
+          <br className="sm:block hidden" />
+          Dengan analisis fitur, biaya, dan manfaat, kami memastikan solusi optimal untuk meningkatkan
+          performa dan produktivitas tim Anda.
+        </p>
       </div>
-      <h1 className="w-full font-poppins font-semibold ss:text-[68px] text-[52px] text-black ss:leading-[100px] leading-[75px]">
-      Masa Kini
-      </h1>
-      <p className={`${styles.paragraph} max-w-[500px] mt-5`}>
-        Tim ahli kami siap membantu Anda menemukan aplikasi penjualan terbaik yang sesuai dengan kebutuhan bisnis Anda. Dengan metodologi khusus, kami menganalisis fitur, biaya langganan tahunan, dan manfaat lainnya untuk memastikan Anda mendapatkan solusi yang tepat guna meningkatkan performa dan produktivitas tim penjualan Anda.
-      </p>
-    </div>
-    <div className={`${styles.flexCenter} flex-1 flex md:my-0 my-10 relative`}>
-      <Image
-        src={web}
-        alt="billings"
-        className="w-[100%] h-[100%] relative z-[5]"
-      />
-      <div className="absolute z-[0] w-[40%] h-[35%] top-0 pink__gradient" />
-      <div className="absolute z-[1] w-[80%] h-[80%] rounded-full bottom-40 white__gradient" />
-      <div className="absolute z-[0] w-[50%] h-[50%] right-20 bottom-20 blue__gradient" />
-    </div>
-  </section>
-);
+
+      <div className="flex flex-col sm:flex-row justify-center gap-4 my-10">
+        <Link
+          href="/register"
+          className={`px-6 py-4 ss:px-8 ss:py-5 ${component.btnPrimary} flex items-center justify-center gap-2 group`}
+        >
+          <span className="leading-[32px]">Registration</span>
+          <Image
+            src={icArrowRight}
+            alt="arrow"
+            className="w-[8%] ss:w-[20%] h-auto transition-transform duration-500 group-hover:-translate-y-1 group-hover:translate-x-1"
+          />
+        </Link>
+
+        <Link
+          href="#wrapperContent"
+          className={`px-6 py-4 ss:px-8 ss:py-5 ${component.btnSecondary} text-center`}
+        >
+          Learn More
+        </Link>
+      </div>
+
+      <div className={`${styles.flexCenter} flex-1 flex mt-[93px] relative align-center sm:px-16 px-6`}>
+        <Image
+          src={icScreen2}
+          alt="screen2"
+          className="w-[23%] ss:w-[20%] h-auto z-[6] rounded-xl absolute ss:start-16 start-6 shadow-sm transition-transform duration-500"
+          style={{ transform: `translateY(${scrollY * 0.05}px)` }}
+        />
+        <Image
+          src={icScreen1}
+          alt="screen1"
+          className="w-[90%] ss:w-[70%] h-[100%] z-[5] rounded-xl relative"
+        />
+        <Image
+          dir="rtl"
+          src={icScreen3}
+          alt="screen3"
+          className="w-[23%] ss:w-[25%] h-auto z-[6] rounded-xl absolute ss:start-16 start-6 shadow-sm transition-transform duration-500"
+          style={{ transform: `translateY(${scrollY * 0.05}px)` }}
+        />
+      </div>
+    </section>
+  );
+};
 
 export default Hero;

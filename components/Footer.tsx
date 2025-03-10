@@ -4,7 +4,7 @@ import { footerLinks, socialMedia } from "@/constants";
 import Image from "next/image";
 
 const Footer: React.FC = () => (
-  <footer className="bg-white text-black py-12 px-4 flex justify-center">
+  <footer className="bg-[#171717] text-black py-12 px-4 flex justify-center">
     <div className={`${styles.boxWidth}`}>
       <div className="container mx-auto flex flex-col md:flex-row md:justify-between">
         {/* Bagian Logo & Deskripsi */}
