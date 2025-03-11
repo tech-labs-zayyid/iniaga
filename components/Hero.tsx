@@ -20,18 +20,21 @@ const Hero: React.FC = () => {
 
   return (
     <section id="home" className={`text-center sm:pt-16 pt-6`}>
-      <div className={`flex-1 ${styles.flexCenter} flex-col xl:px-0 sm:px-16 px-[20px]`}>
+      <div
+        className={`flex-1 ${styles.flexCenter} flex-col xl:px-0 sm:px-16 px-[20px]`}
+      >
         <div className="flex flex-row justify-between items-center w-full">
           <h1 className="flex-1 font-poppins font-semibold ss:text-[72px] text-[35px] text-white ss:leading-[100px] leading-[45px]">
             Penjualan Optimal <br className="sm:block hidden" />
             <span className="text-[#247bfe]">Teknologi</span> Masa Kini
           </h1>
         </div>
-        <p className={`${styles.paragraph} mt-5`}>
-          Tim ahli kami siap membantu Anda menemukan aplikasi penjualan terbaik sesuai kebutuhan bisnis.
+        <p className={`${styles.paragraph1} mt-5`}>
+          Tim ahli kami siap membantu Anda menemukan aplikasi penjualan terbaik
+          sesuai kebutuhan bisnis.
           <br className="sm:block hidden" />
-          Dengan analisis fitur, biaya, dan manfaat, kami memastikan solusi optimal untuk meningkatkan
-          performa dan produktivitas tim Anda.
+          Dengan analisis fitur, biaya, dan manfaat, kami memastikan solusi
+          optimal untuk meningkatkan performa dan produktivitas tim Anda.
         </p>
       </div>
 
@@ -56,7 +59,9 @@ const Hero: React.FC = () => {
         </Link>
       </div>
 
-      <div className={`${styles.flexCenter} flex-1 flex mt-[93px] relative align-center sm:px-16 px-6`}>
+      <div
+        className={`${styles.flexCenter} flex-1 flex mt-[93px] relative align-center sm:px-16 px-6`}
+      >
         <Image
           src={icScreen2}
           alt="screen2"

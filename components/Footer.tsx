@@ -1,5 +1,5 @@
 import styles from "@/styles/style";
-import { logoDark } from "@/public/assets";
+import { logoDark, logo1 } from "@/public/assets";
 import { footerLinks, socialMedia } from "@/constants";
 import Image from "next/image";
 
@@ -10,7 +10,7 @@ const Footer: React.FC = () => (
         {/* Bagian Logo & Deskripsi */}
         <div className="md:w-1/3 flex flex-col">
           <Image
-            src={logoDark}
+            src={logo1}
             alt="Iniaga"
             className="w-[200px] object-contain mb-4"
           />
