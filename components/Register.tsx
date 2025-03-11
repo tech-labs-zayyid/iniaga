@@ -265,7 +265,7 @@ const FormComponent = () => {
   };
 
   return (
-    <div className="flex justify-center items-start min-h-screen bg-gray-100">
+    <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <div className="w-full max-w-lg bg-white p-6 rounded-lg shadow-md border">
         <h2 className="text-2xl font-semibold text-gray-800 mb-4 text-center">
           Registration Sales
