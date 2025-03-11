@@ -59,7 +59,7 @@ jobs:
       run: |
         IMAGE_TAG=${{ github.sha }}
         docker tag myapp-fe-iniaga:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/zayyid/fe-iniaga:$IMAGE_TAG
-        docker tag myapp-fe-iniaga:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/zayyid/fe-iniaga-sales:latest
+        docker tag myapp-fe-iniaga:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/zayyid/fe-iniaga:latest
 
     - name: Push Docker image to ECR
       run: |
