@@ -145,12 +145,12 @@ const FormComponent = () => {
           password: "defaultpassword123",
           role: "sales",
           sales_id: "",
-          image_url: ""
+          image_url: "",
         }),
       });
-  
+
       const data = await response.json();
-  
+
       if (response.ok) {
         alert("Registrasi berhasil!");
         console.log("User registered:", data);
@@ -227,7 +227,7 @@ const FormComponent = () => {
         throw new Error("Token pembayaran tidak ditemukan");
       }
     } catch (error) {
-      console.error("Pembayaran gagal:", error.message);
+      console.error("Pembayaran gagal:", error);
     }
   };
 
@@ -265,7 +265,9 @@ const FormComponent = () => {
               required
             />
             {usernameError && (
-              <small className="text-red-500 text-sm mt-1">{usernameError}</small>
+              <small className="text-red-500 text-sm mt-1">
+                {usernameError}
+              </small>
             )}
             {formData.username && (
               <div className="mt-2 flex items-center space-x-2 text-gray-600">
@@ -358,7 +360,7 @@ const FormComponent = () => {
         </form>
         {/* <a href="/payment"> */}
         <button
-            type="submit"
+          type="submit"
           disabled={
             !isAvailable ||
             !isEmailAvailable ||
@@ -379,7 +381,9 @@ const FormComponent = () => {
         {/* </a> */}
       </div>
       <div className="w-full max-w-sm bg-white p-6 rounded-lg shadow-md border ml-6">
-        <h2 className="text-lg font-semibold text-gray-800 mb-4">Order Summary</h2>
+        <h2 className="text-lg font-semibold text-gray-800 mb-4">
+          Order Summary
+        </h2>
         <div className="flex justify-between items-center mb-2">
           <span>Subtotal</span>
           <span>Rp {formatRupiah(formData.payment)}</span>
@@ -390,7 +394,9 @@ const FormComponent = () => {
         </div>
         <div className="flex justify-between items-center font-bold text-lg mt-4 border-t pt-4">
           <span>Total</span>
-          <span className="text-green-600">Rp {formatRupiah(formData.payment)}</span>
+          <span className="text-green-600">
+            Rp {formatRupiah(formData.payment)}
+          </span>
         </div>
       </div>
     </div>
