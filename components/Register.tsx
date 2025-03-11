@@ -27,6 +27,10 @@ const FormComponent = () => {
   const [usernameError, setUsernameError] = useState("");
   const [noWaError, setNoWaError] = useState("");
   const [emailError, setEmailError] = useState("");
+  const [voucher, setVoucher] = useState("");
+  const [discount, setDiscount] = useState(0);
+  const [voucherApplied, setVoucherApplied] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const paymentList: Record<string, number> = {
     starter: 200000,
@@ -40,6 +44,22 @@ const FormComponent = () => {
   const existingNoWa = ["081395294204", "08129876543"];
   const existingEmail = ["prasetyoeko822@gmail.com", "test@gmail.com"];
 
+  const handleApplyVoucher = () => {
+    if (voucher === "DISKON50") {
+      setDiscount(50000);
+      setVoucherApplied(true);
+    } else {
+      setDiscount(0);
+      setErrorMessage("Kode voucher tidak valid!");
+    }
+  };
+
+  const handleRemoveVoucher = () => {
+    setDiscount(0);
+    setVoucher("");
+    setVoucherApplied(false); // Tampilkan kembali input voucher
+    setErrorMessage("");
+  };
   useEffect(() => {
     if (!formData.username || usernameError) {
       setIsAvailable(null);
@@ -384,6 +404,35 @@ const FormComponent = () => {
         <h2 className="text-lg font-semibold text-gray-800 mb-4">
           Order Summary
         </h2>
+
+        {!voucherApplied ? (
+          <div className="mb-4">
+            <input
+              type="text"
+              value={voucher}
+              onChange={(e) => setVoucher(e.target.value)}
+              placeholder="Masukkan kode voucher"
+              className="w-full p-2 border rounded-lg focus:ring focus:ring-blue-300"
+            />
+            {errorMessage && (
+              <p className="text-red-500 text-sm mt-2">{errorMessage}</p> // Alert error muncul di bawah input
+            )}
+            <button
+              onClick={handleApplyVoucher}
+              className="w-full mt-2 bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600"
+            >
+              Gunakan
+            </button>
+          </div>
+        ) : (
+          <button
+            onClick={handleRemoveVoucher}
+            className="w-full bg-red-500 text-white p-2 rounded-lg hover:bg-red-600 mb-4"
+          >
+            Cancel Voucher
+          </button>
+        )}
+
         <div className="flex justify-between items-center mb-2">
           <span>Subtotal</span>
           <span>Rp {formatRupiah(formData.payment)}</span>
@@ -392,10 +441,18 @@ const FormComponent = () => {
           <span>Delivery</span>
           <span>Rp 0</span>
         </div>
+
+        {discount > 0 && (
+          <div className="flex justify-between items-center mb-2 text-red-500">
+            <span>Diskon</span>
+            <span>- Rp {formatRupiah(discount)}</span>
+          </div>
+        )}
+
         <div className="flex justify-between items-center font-bold text-lg mt-4 border-t pt-4">
           <span>Total</span>
           <span className="text-green-600">
-            Rp {formatRupiah(formData.payment)}
+            Rp {formatRupiah(formData.payment - discount)}
           </span>
         </div>
       </div>
