@@ -13,6 +13,7 @@ import {
   icWideMarket,
   icUpseo,
   icInterview,
+  icRecruitment,
   arrowUp,
   icMarketing,
   boby,
@@ -41,7 +42,7 @@ export const navLinks = [
 export const features = [
   {
     id: "feature-1",
-    icon: icInterview,
+    icon: icRecruitment,
     title: "Rekrut Agen",
     content:
       "Aplikasi ini mempermudah sales merekrut agen, menyediakan tools, dan melacak perkembangan dalam satu platform.",
@@ -122,8 +123,8 @@ export const stats = [
   {
     id: "stats-3",
     title: "Transaction",
-    value: "200+",
-  },
+    value: "200+"
+  }
 ];
 
 export const footerLinks = [
