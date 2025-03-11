@@ -26,12 +26,21 @@ import people03 from "./people03.png";
 import web from "./web.png";
 import agen from "./agen_rec.png";
 import logo1 from "./crop_logo.png";
+import logoDark from "./ic-logo-dark.png";
 import anhar from "./anhar.jpg";
 import boby from "./boby.jpg";
 import icInterview from "./ic-interview.svg";
 import icMarketing from "./ic-marketing.svg";
 import icWideMarket from './ic-wide-market.svg'
 import icUpseo from './ic-upseo.svg'
+
+// SCREENS
+import icScreen1 from './screens/screen-1.png'
+import icScreen2 from './screens/screen-2.png'
+import icScreen3 from './screens/screen-3.png'
+
+// ICONS
+import icArrowRight from './icons/ic-arrow-right-up.png'
 
 export {
   airbnb,
@@ -67,5 +76,10 @@ export {
   icInterview,
   icMarketing,
   icWideMarket,
-  icUpseo
+  icUpseo,
+  logoDark,
+  icScreen1,
+  icScreen2,
+  icScreen3,
+  icArrowRight
 };

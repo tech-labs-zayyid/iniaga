@@ -26,7 +26,7 @@ const Business: React.FC = () => (
   <section id="features" className="py-12">
     <div className="container mx-auto">
       <div className={layout.sectionInfo}>
-        <h2 className={styles.heading2}>
+        <h2 className={`text-center ${styles.heading2}`}>
           Anda fokus pada product, <br className="sm:block hidden" />
           Kami urus semuanya.
         </h2>

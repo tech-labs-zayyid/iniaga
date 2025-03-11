@@ -1,16 +1,16 @@
 import styles from "@/styles/style";
-import { logo1 } from "@/public/assets";
+import { logoDark } from "@/public/assets";
 import { footerLinks, socialMedia } from "@/constants";
 import Image from "next/image";
 
 const Footer: React.FC = () => (
-  <footer className="bg-gray-900 text-white py-12 px-4 flex justify-center">
+  <footer className="bg-[#171717] text-black py-12 px-4 flex justify-center">
     <div className={`${styles.boxWidth}`}>
       <div className="container mx-auto flex flex-col md:flex-row md:justify-between">
         {/* Bagian Logo & Deskripsi */}
         <div className="md:w-1/3 flex flex-col">
           <Image
-            src={logo1}
+            src={logoDark}
             alt="Iniaga"
             className="w-[200px] object-contain mb-4"
           />

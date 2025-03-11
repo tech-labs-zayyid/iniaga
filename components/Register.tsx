@@ -132,6 +132,37 @@ const FormComponent = () => {
     document.body.appendChild(script);
   }, []);
 
+  const handleRegister = async () => {
+    try {
+      const response = await fetch("/api/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: formData.username,
+          name: formData.fullname,
+          whatsapp_number: formData.noWa,
+          email: formData.email,
+          password: "defaultpassword123",
+          role: "sales",
+          sales_id: "",
+          image_url: ""
+        }),
+      });
+  
+      const data = await response.json();
+  
+      if (response.ok) {
+        alert("Registrasi berhasil!");
+        console.log("User registered:", data);
+      } else {
+        alert(`Registrasi gagal: ${data.message}`);
+      }
+    } catch (error) {
+      console.error("Error saat registrasi:", error);
+      alert("Terjadi kesalahan saat registrasi.");
+    }
+  };
+
   const handlePayment = async () => {
     if (
       !formData?.email ||
@@ -214,10 +245,10 @@ const FormComponent = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+    <div className="flex justify-center items-start min-h-screen bg-gray-100">
       <div className="w-full max-w-lg bg-white p-6 rounded-lg shadow-md border">
         <h2 className="text-2xl font-semibold text-gray-800 mb-4 text-center">
-          Register
+          Registration Sales
         </h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           {/** Username */}
@@ -234,7 +265,7 @@ const FormComponent = () => {
               required
             />
             {usernameError && (
-              <p className="text-red-500 text-sm mt-1">{usernameError}</p>
+              <small className="text-red-500 text-sm mt-1">{usernameError}</small>
             )}
             {formData.username && (
               <div className="mt-2 flex items-center space-x-2 text-gray-600">
@@ -324,32 +355,10 @@ const FormComponent = () => {
               </div>
             )}
           </div>
-
-          {/** URL with "Rp" Prefix */}
-          <div>
-            <label className="text-gray-700">Payment</label>
-            <div className="relative mb-6">
-              <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-lg">
-                Rp
-              </span>
-              <input
-                disabled
-                type="text"
-                name="payment"
-                value={formatRupiah(formData.payment)}
-                onChange={handleChange}
-                className="w-full pl-10 pr-4 p-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Enter email"
-                required
-              />
-            </div>
-          </div>
-
-          {/** Submit Button */}
         </form>
         {/* <a href="/payment"> */}
         <button
-          //   type="submit"
+            type="submit"
           disabled={
             !isAvailable ||
             !isEmailAvailable ||
@@ -359,7 +368,7 @@ const FormComponent = () => {
           }
           onClick={handlePayment}
           //   className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 rounded-md transition"
-          className={`w-full font-semibold py-3 rounded-md transition ${
+          className={`w-full font-semibold py-3 mt-3 rounded-md transition ${
             !isAvailable || !isEmailAvailable || !isNoWaAvailable
               ? "bg-gray-300 text-gray-500 cursor-not-allowed"
               : "bg-blue-500 hover:bg-blue-600 text-white"
@@ -368,6 +377,21 @@ const FormComponent = () => {
           Submit
         </button>
         {/* </a> */}
+      </div>
+      <div className="w-full max-w-sm bg-white p-6 rounded-lg shadow-md border ml-6">
+        <h2 className="text-lg font-semibold text-gray-800 mb-4">Order Summary</h2>
+        <div className="flex justify-between items-center mb-2">
+          <span>Subtotal</span>
+          <span>Rp {formatRupiah(formData.payment)}</span>
+        </div>
+        <div className="flex justify-between items-center mb-2">
+          <span>Delivery</span>
+          <span>Rp 0</span>
+        </div>
+        <div className="flex justify-between items-center font-bold text-lg mt-4 border-t pt-4">
+          <span>Total</span>
+          <span className="text-green-600">Rp {formatRupiah(formData.payment)}</span>
+        </div>
       </div>
     </div>
   );
