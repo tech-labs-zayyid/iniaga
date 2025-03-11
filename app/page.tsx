@@ -42,7 +42,9 @@ const Home: React.FC = () => {
           isScrolled ? "bg-[#171717]" : "transparent"
         }`}
       >
-        <div className={`${styles.paddingX} ${styles.marginXauto} ${styles.boxWidth}`}>
+        <div
+          className={`${styles.paddingX} ${styles.marginXauto} ${styles.boxWidth}`}
+        >
           <Navbar />
         </div>
       </div>
@@ -51,15 +53,18 @@ const Home: React.FC = () => {
           <Hero />
         </div>
       </div>
-      <div className="bg-white rounded-[50px] pt-14 ss:pt-[50px]">
-        <div id="wrapperContent" className={`${styles.paddingX}`}>
+      <div className="bg-white rounded-[50px] pt-14 ss:pt-[50px] flex justify-center">
+        <div className={`${styles.paddingX}`}>
           <div className={`${styles.boxWidth}`}>
             <Stats />
             <Business />
           </div>
         </div>
       </div>
-      <div id="wrapperContent" className={`${styles.paddingX} ${styles.flexStart}`}>
+      <div
+        id="wrapperContent"
+        className={`${styles.paddingX} ${styles.flexStart} pt-14`}
+      >
         <div className={`${styles.boxWidth}`}>
           {/* <Billing /> */}
           {/* <CardDeal /> */}
@@ -69,9 +74,7 @@ const Home: React.FC = () => {
           {/* <Clients /> */}
         </div>
       </div>
-      <div
-        className={`bg-white ${styles.paddingX} ${styles.flexStart} mb-14`}
-      >
+      <div className={`bg-white ${styles.paddingX} ${styles.flexStart} mb-14`}>
         <div className={`${styles.boxWidth}`}>
           <CTA />
         </div>

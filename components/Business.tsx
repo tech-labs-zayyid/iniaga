@@ -9,7 +9,13 @@ import "swiper/css/pagination";
 const FeaturesCard: React.FC<FeatredCardProps> = ({ icon, title, content }) => (
   <div className="flex flex-col items-start bg-sky-100 rounded-xl p-4 h-[450px]">
     <div className="w-full h-[300px] rounded-lg flex items-center justify-center">
-      <Image src={icon} alt="icon" width={300} height={300} className="object-contain" />
+      <Image
+        src={icon}
+        alt="icon"
+        width={300}
+        height={300}
+        className="object-contain"
+      />
     </div>
     <div className="mt-auto">
       <h4 className="font-poppins font-semibold text-black mt-4 mb-2 text-start">
@@ -39,14 +45,18 @@ const Business: React.FC = () => (
       </p>
       <div className="hidden md:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-6">
         {features.map((feature, index) => (
-          <FeaturesCard key={index} {...feature} index={index}  />
+          <FeaturesCard key={index} {...feature} index={index} />
         ))}
       </div>
       <div className="block md:hidden mt-6">
-        <Swiper spaceBetween={20} slidesPerView={1.1} pagination={{ clickable: true }}>
+        <Swiper
+          spaceBetween={20}
+          slidesPerView={1.1}
+          pagination={{ clickable: true }}
+        >
           {features.map((feature, index) => (
             <SwiperSlide key={index}>
-              <FeaturesCard {...feature} index={index}  />
+              <FeaturesCard {...feature} index={index} />
             </SwiperSlide>
           ))}
         </Swiper>

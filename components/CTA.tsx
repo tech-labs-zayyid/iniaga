@@ -23,14 +23,19 @@ const CTA: React.FC = () => {
   };
 
   return (
-    <section className="bg-black-gradient-2 box-shadow rounded-2xl py-12 px-6 mt-14">
-      <div className={`${styles.flexCenter} ${styles.marginY} ${styles.padding} flex-col`}>
+    <section className="bg-black-gradient-2 box-shadow rounded-2xl py-12 px-6 mt-14 mb-14">
+      <div
+        className={`${styles.flexCenter} ${styles.marginY} ${styles.padding} flex-col`}
+      >
         <div className="text-center">
           <h2 className={`${styles.heading2} text-white`}>
-            Subscribe to Yout Newsletter
+            Subscribe to Your Newsletter
           </h2>
-          <p className={`${styles.paragraph} max-w-[470px] mt-3 text-white mx-auto`}>
-            Subscribe to receive updates on promotions, news, and special offers.
+          <p
+            className={`${styles.paragraph} max-w-[470px] mt-3 text-white mx-auto`}
+          >
+            Subscribe to receive updates on promotions, news, and special
+            offers.
           </p>
         </div>
         <div className="flex flex-col sm:flex-row items-center gap-4 mt-6 w-full max-w-md">
