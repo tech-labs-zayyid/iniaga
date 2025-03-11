@@ -133,31 +133,70 @@ const FormComponent = () => {
   }, []);
 
   const handlePayment = async () => {
-    // setLoading(true);
+    if (
+      !formData?.email ||
+      !formData?.fullname ||
+      !formData?.username ||
+      !formData?.noWa ||
+      !formData?.payment
+    ) {
+      console.error("Data pembayaran tidak lengkap!");
+      return;
+    }
+
+    const orderId = `ORDER-${Date.now()}-${Math.floor(
+      1000 + Math.random() * 9000
+    )}`;
+
     try {
-      const response = await fetch("/api/midtrans", {
+      const response = await fetch(
+        "https://apiniaga.zayyid.com/user/register",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: formData.email,
+            name: formData.fullname,
+            password: "cicilalang",
+            role: "sales",
+            username: formData.username,
+            whatsapp_number: formData.noWa,
+            order_id: orderId,
+            gross_amount: formData.payment, // Harga dalam IDR
+            paket_name: "basic",
+          }),
+        }
+      );
+
+      if (!response.ok) throw new Error("Gagal melakukan registrasi pengguna");
+
+      const responseData = await response.json();
+
+      const response2 = await fetch("/api/midtrans", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          order_id: `ORDER-${Date.now()}-${Math.floor(
-            1000 + Math.random() * 9000
-          )}`,
-          gross_amount: formData?.payment, // Harga dalam IDR
-          customer_name: formData?.fullname,
-          email: formData?.email,
-          phone: formData?.noWa,
+          order_id: orderId,
+          gross_amount: formData.payment,
+          customer_name: formData.fullname,
+          email: formData.email,
+          phone: formData.noWa,
         }),
       });
 
-      const data = await response.json();
-      console.log(data.token, "data");
-      if (data.token) {
-        localStorage.setItem("token", data.token);
-        window.snap.pay(data.token);
-        localStorage.setItem("emai", formData.email);
+      if (!response2.ok) throw new Error("Gagal mendapatkan token pembayaran");
+
+      const paymentData = await response2.json();
+
+      if (paymentData.token) {
+        localStorage.setItem("token", paymentData.token);
+        localStorage.setItem("email", formData.email);
+        window.snap.pay(paymentData.token);
+      } else {
+        throw new Error("Token pembayaran tidak ditemukan");
       }
     } catch (error) {
-      console.error("Pembayaran gagal:", error);
+      console.error("Pembayaran gagal:", error.message);
     }
   };
 
