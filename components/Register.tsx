@@ -11,6 +11,7 @@ const FormComponent = () => {
   const [formData, setFormData] = useState({
     username: "",
     fullname: "",
+    password: "",
     noWa: "",
     email: "",
     payment: 0,
@@ -60,6 +61,7 @@ const FormComponent = () => {
     setVoucherApplied(false); // Tampilkan kembali input voucher
     setErrorMessage("");
   };
+
   useEffect(() => {
     if (!formData.username || usernameError) {
       setIsAvailable(null);
@@ -152,44 +154,14 @@ const FormComponent = () => {
     document.body.appendChild(script);
   }, []);
 
-  const handleRegister = async () => {
-    try {
-      const response = await fetch("/api/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          username: formData.username,
-          name: formData.fullname,
-          whatsapp_number: formData.noWa,
-          email: formData.email,
-          password: "defaultpassword123",
-          role: "sales",
-          sales_id: "",
-          image_url: "",
-        }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        alert("Registrasi berhasil!");
-        console.log("User registered:", data);
-      } else {
-        alert(`Registrasi gagal: ${data.message}`);
-      }
-    } catch (error) {
-      console.error("Error saat registrasi:", error);
-      alert("Terjadi kesalahan saat registrasi.");
-    }
-  };
-
   const handlePayment = async () => {
     if (
       !formData?.email ||
       !formData?.fullname ||
       !formData?.username ||
       !formData?.noWa ||
-      !formData?.payment
+      !formData?.payment ||
+      !formData?.password
     ) {
       console.error("Data pembayaran tidak lengkap!");
       return;
@@ -200,24 +172,21 @@ const FormComponent = () => {
     )}`;
 
     try {
-      const response = await fetch(
-        "https://apiniaga.zayyid.com/user/register",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            email: formData.email,
-            name: formData.fullname,
-            password: "cicilalang",
-            role: "sales",
-            username: formData.username,
-            whatsapp_number: formData.noWa,
-            order_id: orderId,
-            gross_amount: formData.payment, // Harga dalam IDR
-            paket_name: "basic",
-          }),
-        }
-      );
+      const response = await fetch("/api/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: formData.email,
+          name: formData.fullname,
+          password: formData.password,
+          role: "sales",
+          username: formData.username,
+          whatsapp_number: formData.noWa,
+          order_id: orderId,
+          gross_amount: formData.payment,
+          paket_name: "basic"
+        })
+      });
 
       if (!response.ok) throw new Error("Gagal melakukan registrasi pengguna");
 
@@ -265,32 +234,31 @@ const FormComponent = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-lg bg-white p-6 rounded-lg shadow-md border">
-        <h2 className="text-2xl font-semibold text-gray-800 mb-4 text-center">
+    <div className="flex flex-col items-start min-h-screen gap-3 p-4 sm:flex-row sm:justify-center sm:gap-6">
+      <div className="w-full max-w-sm sm:max-w-lg bg-white p-6 rounded-lg shadow-md border">
+        <h2 className="font-poppins text-2xl font-semibold text-gray-800 mb-4 text-center">
           Registration Sales
         </h2>
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/** Username */}
           <div>
-            <label className="text-gray-700">Username</label>
+            <label className="text-gray-700 font-poppins">Username</label>
             <input
               type="text"
               name="username"
               value={formData.username}
               onChange={handleChange}
-              className="w-full p-3 border rounded-md focus:ring-2 focus:ring-blue-500"
+              className="w-full p-3 border font-poppins rounded-md focus:ring-2 focus:ring-blue-500"
               placeholder="Enter username"
               maxLength={25}
               required
             />
             {usernameError && (
-              <small className="text-red-500 text-sm mt-1">
+              <small className="text-red-500 font-poppins text-sm mt-1">
                 {usernameError}
               </small>
             )}
             {formData.username && (
-              <div className="mt-2 flex items-center space-x-2 text-gray-600">
+              <div className="mt-2 font-poppins flex items-center space-x-2 text-gray-600">
                 {usernameError ? (
                   <p className="text-blue-600 font-semibold">
                     {formData.username}.iniaga.com
@@ -315,29 +283,40 @@ const FormComponent = () => {
             )}
           </div>
 
-          {/** Fullname */}
           <div>
-            <label className="text-gray-700">Fullname</label>
+            <label className="text-gray-700 font-poppins">Fullname</label>
             <input
               type="text"
               name="fullname"
               value={formData.fullname}
               onChange={handleChange}
-              className="w-full p-3 border rounded-md focus:ring-2 focus:ring-blue-500"
+              className="w-full p-3 border font-poppins rounded-md focus:ring-2 focus:ring-blue-500"
               placeholder="Enter fullname"
               required
             />
           </div>
 
-          {/** WhatsApp Number */}
           <div>
-            <label className="text-gray-700">No WhatsApp</label>
+            <label className="text-gray-700 font-poppins">Password</label>
+            <input
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              className="w-full p-3 border font-poppins rounded-md focus:ring-2 focus:ring-blue-500"
+              placeholder="Enter password"
+              required
+            />
+          </div>
+
+          <div>
+            <label className="text-gray-700 font-poppins">No WhatsApp</label>
             <input
               type="text"
               name="noWa"
               value={formData.noWa}
               onChange={handleChange}
-              className="w-full p-3 border rounded-md focus:ring-2 focus:ring-blue-500"
+              className="w-full p-3 border font-poppins rounded-md focus:ring-2 focus:ring-blue-500"
               placeholder="Enter WhatsApp number"
               required
             />
@@ -356,13 +335,13 @@ const FormComponent = () => {
 
           {/** Email */}
           <div>
-            <label className="text-gray-700">Email</label>
+            <label className="text-gray-700 font-poppins">Email</label>
             <input
               type="email"
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full p-3 border rounded-md focus:ring-2 focus:ring-blue-500"
+              className="w-full p-3 border font-poppins rounded-md focus:ring-2 focus:ring-blue-500"
               placeholder="Enter email"
               required
             />
@@ -378,7 +357,7 @@ const FormComponent = () => {
             )}
           </div>
         </form>
-        {/* <a href="/payment"> */}
+
         <button
           type="submit"
           disabled={
@@ -390,7 +369,7 @@ const FormComponent = () => {
           }
           onClick={handlePayment}
           //   className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 rounded-md transition"
-          className={`w-full font-semibold py-3 mt-3 rounded-md transition ${
+          className={`w-full font-poppins font-semibold py-3 mt-3 rounded-md transition ${
             !isAvailable || !isEmailAvailable || !isNoWaAvailable
               ? "bg-gray-300 text-gray-500 cursor-not-allowed"
               : "bg-blue-500 hover:bg-blue-600 text-white"
@@ -400,8 +379,9 @@ const FormComponent = () => {
         </button>
         {/* </a> */}
       </div>
-      <div className="w-full max-w-sm bg-white p-6 rounded-lg shadow-md border ml-6">
-        <h2 className="text-lg font-semibold text-gray-800 mb-4">
+
+      <div className="w-full max-w-sm bg-white p-6 rounded-lg shadow-md border sm:mt-0">
+        <h2 className="text-lg font-poppins font-semibold text-gray-800 mb-4">
           Order Summary
         </h2>
 
@@ -412,14 +392,14 @@ const FormComponent = () => {
               value={voucher}
               onChange={(e) => setVoucher(e.target.value)}
               placeholder="Masukkan kode voucher"
-              className="w-full p-2 border rounded-lg focus:ring focus:ring-blue-300"
+              className="w-full font-poppins p-2 border rounded-lg focus:ring focus:ring-blue-300"
             />
             {errorMessage && (
-              <p className="text-red-500 text-sm mt-2">{errorMessage}</p> // Alert error muncul di bawah input
+              <p className="text-red-500 font-poppins text-sm mt-2">{errorMessage}</p> // Alert error muncul di bawah input
             )}
             <button
               onClick={handleApplyVoucher}
-              className="w-full mt-2 bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600"
+              className="w-full mt-2 bg-blue-500 font-poppins text-white p-2 rounded-lg hover:bg-blue-600"
             >
               Gunakan
             </button>
@@ -427,29 +407,29 @@ const FormComponent = () => {
         ) : (
           <button
             onClick={handleRemoveVoucher}
-            className="w-full bg-red-500 text-white p-2 rounded-lg hover:bg-red-600 mb-4"
+            className="w-full bg-red-500 font-poppins text-white p-2 rounded-lg hover:bg-red-600 mb-4"
           >
             Cancel Voucher
           </button>
         )}
 
-        <div className="flex justify-between items-center mb-2">
+        <div className="flex font-poppins justify-between items-center mb-2">
           <span>Subtotal</span>
           <span>Rp {formatRupiah(formData.payment)}</span>
         </div>
-        <div className="flex justify-between items-center mb-2">
+        <div className="flex font-poppins justify-between items-center mb-2">
           <span>Delivery</span>
           <span>Rp 0</span>
         </div>
 
         {discount > 0 && (
-          <div className="flex justify-between items-center mb-2 text-red-500">
+          <div className="flex font-poppins justify-between items-center mb-2 text-red-500">
             <span>Diskon</span>
             <span>- Rp {formatRupiah(discount)}</span>
           </div>
         )}
 
-        <div className="flex justify-between items-center font-bold text-lg mt-4 border-t pt-4">
+        <div className="flex font-poppins justify-between items-center font-bold text-lg mt-4 border-t pt-4">
           <span>Total</span>
           <span className="text-green-600">
             Rp {formatRupiah(formData.payment - discount)}
