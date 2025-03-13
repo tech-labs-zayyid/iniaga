@@ -41,7 +41,7 @@ const Hero: React.FC = () => {
       {/* Buttons */}
       <div className="flex flex-wrap justify-center gap-4 my-10 sm:px-0 px-6">
         <Link
-          href="/register"
+          href="#pricingPlant"
           className={`px-6 py-3 sm:px-8 sm:py-4 ${component.btnPrimary} flex items-center justify-center gap-2 group`}
         >
           <span className="leading-[32px]">Registration</span>

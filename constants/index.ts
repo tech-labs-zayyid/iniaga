@@ -237,3 +237,48 @@ export const clients = [
     logo: dropbox,
   },
 ];
+
+export const pricingPackage = [
+  {
+    id: '0195457c-8f61-728c-a9ee-3cf2dcf55b5d',
+    package_name: 'Starter',
+    package_price: 250000,
+    package_price_discount: 200000,
+    package_title: 'Get started with our starter features.',
+    package_features: {
+      user: '1 user accounts',
+      agent: '10 agent/marketer account',
+      domain: 'Domain Pribadi',
+      maintenance: 'Maintance Content Feature',
+      basic: 'Basic support'
+    }
+  },
+  {
+    id: '0195457c-ce46-733d-bbc6-41fe2456139b',
+    package_name: 'Basic',
+    package_price: 350000,
+    package_price_discount: 300000,
+    package_title: 'Get started with our basic features.',
+    package_features: {
+      user: '1 user accounts',
+      agent: '25 agent/marketer account',
+      domain: 'Domain Pribadi',
+      maintenance: 'Maintance Content Feature',
+      basic: 'Standard support'
+    }
+  },
+  {
+    id: '0195457c-fdda-7778-98ad-36f5338f34e0',
+    package_name: 'Pro',
+    package_price: 2500000,
+    package_price_discount: 2000000,
+    package_title: 'Perfect for small businesses and startups.',
+    package_features: {
+      user: '1 user accounts',
+      agent: '250 agent/marketer account',
+      domain: 'Domain Pribadi',
+      maintenance: 'Maintance Content Feature',
+      basic: 'Full support'
+    }
+  }
+]

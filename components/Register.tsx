@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
+import { pricingPackage } from "@/constants";
 
 declare global {
   interface Window {
@@ -17,13 +18,9 @@ const FormComponent = () => {
     payment: 0,
   });
   const [isAvailable, setIsAvailable] = useState<boolean | null>(null);
-  const [isUsernameAvailable, setIsUsernameAvailable] = useState<
-    boolean | null
-  >(null);
+  const [isUsernameAvailable, setIsUsernameAvailable] = useState<boolean | null>(null);
   const [isNoWaAvailable, setIsNoWaAvailable] = useState<boolean | null>(null);
-  const [isEmailAvailable, setIsEmailAvailable] = useState<boolean | null>(
-    null
-  );
+  const [isEmailAvailable, setIsEmailAvailable] = useState<boolean | null>(null);
 
   const [usernameError, setUsernameError] = useState("");
   const [noWaError, setNoWaError] = useState("");
@@ -32,18 +29,14 @@ const FormComponent = () => {
   const [discount, setDiscount] = useState(0);
   const [voucherApplied, setVoucherApplied] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [dataPackage, setDataPackage] = useState<null>(null)
 
-  const paymentList: Record<string, number> = {
-    starter: 200000,
-    basic: 300000,
-    pro: 2000000,
-  };
   const searchParams = useSearchParams();
-  const paket = searchParams.get("paket");
+  const packageId = searchParams.get("product_id");
 
-  const existingUsernames = ["romdon", "eko", "admin", "test"];
-  const existingNoWa = ["081395294204", "08129876543"];
-  const existingEmail = ["prasetyoeko822@gmail.com", "test@gmail.com"];
+  const existingUsernames: any[] = [];
+  const existingNoWa: any[] = [];
+  const existingEmail: any[] = [];
 
   const handleApplyVoucher = () => {
     if (voucher === "DISKON50") {
@@ -70,50 +63,42 @@ const FormComponent = () => {
     }
 
     // Simulasi pengecekan ketersediaan domain (gantilah dengan API fetch jika perlu)
-    const checkAvailability = !existingUsernames.includes(
-      formData.username.toLowerCase()
-    );
+    const checkAvailability = !existingUsernames.includes(formData.username.toLowerCase());
     setIsAvailable(checkAvailability);
-    setIsUsernameAvailable(
-      !existingUsernames.includes(formData.username.toLowerCase())
-    );
+    setIsUsernameAvailable(checkAvailability);
   }, [formData.username]);
+
   useEffect(() => {
     if (!formData.noWa || noWaError) {
       setIsNoWaAvailable(null);
       return;
     }
-    const checkAvailability = !existingNoWa.includes(
-      formData.noWa.toLowerCase()
-    );
-    if (!checkAvailability) {
-      setNoWaError("No telephone yang anda masukan sudah terdaftar");
-    }
-    setIsNoWaAvailable(checkAvailability);
-  }, [formData.noWa, noWaError]);
+    const checkAvailability = !existingNoWa.includes(formData.noWa.toLowerCase());
+    setNoWaError(checkAvailability ? "" : "No telephone yang anda masukan sudah terdaftar");
+  }, [formData.noWa]);
 
   useEffect(() => {
     if (!formData.email || emailError) {
       setIsNoWaAvailable(null);
       return;
     }
-    const checkAvailability = !existingEmail.includes(
-      formData.email.toLowerCase()
-    );
-    if (!checkAvailability) {
-      setEmailError("Email yang anda masukan sudah terdaftar");
-    }
-    setIsEmailAvailable(checkAvailability);
-  }, [formData.email, emailError]);
+    const checkAvailability = !existingEmail.includes(formData.email.toLowerCase());
+    setEmailError(checkAvailability ? "" : "Email yang anda masukan sudah terdaftar");
+  }, [formData.email]);
 
   useEffect(() => {
-    if (paket && paket in paymentList) {
-      setFormData((prevData) => ({
-        ...prevData,
-        payment: paymentList[paket as keyof typeof paymentList], // 🔹 Type Assertion
-      }));
+    if (packageId) {
+      const selectedPackage = pricingPackage.find((item) => item.id === packageId);
+
+      if (selectedPackage) {
+        setDataPackage(selectedPackage as any)
+        setFormData((prevData) => ({
+          ...prevData,
+          payment: selectedPackage.package_price_discount ?? 0,
+        }));
+      }
     }
-  }, [paket]);
+  }, [packageId]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -166,11 +151,9 @@ const FormComponent = () => {
       console.error("Data pembayaran tidak lengkap!");
       return;
     }
-
-    const orderId = `ORDER-${Date.now()}-${Math.floor(
-      1000 + Math.random() * 9000
-    )}`;
-
+  
+    const orderId = `ORDER-${Date.now()}-${Math.floor(1000 + Math.random() * 9000)}`;
+  
     try {
       const response = await fetch("/api/register", {
         method: "POST",
@@ -184,41 +167,54 @@ const FormComponent = () => {
           whatsapp_number: formData.noWa,
           order_id: orderId,
           gross_amount: formData.payment,
-          paket_name: "basic"
-        })
-      });
-
-      if (!response.ok) throw new Error("Gagal melakukan registrasi pengguna");
-
-      const responseData = await response.json();
-
-      const response2 = await fetch("/api/midtrans", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          order_id: orderId,
-          gross_amount: formData.payment,
-          customer_name: formData.fullname,
-          email: formData.email,
-          phone: formData.noWa,
+          product_id: dataPackage?.id as any,
         }),
       });
-
-      if (!response2.ok) throw new Error("Gagal mendapatkan token pembayaran");
-
-      const paymentData = await response2.json();
-
-      if (paymentData.token) {
-        localStorage.setItem("token", paymentData.token);
-        localStorage.setItem("email", formData.email);
-        window.snap.pay(paymentData.token);
-      } else {
-        throw new Error("Token pembayaran tidak ditemukan");
+  
+      if (!response.ok) {
+        const result = await response.json()
+        throw new Error(result?.message || "Gagal melakukan registrasi pengguna");
+      }
+  
+      const responseData = await response.json();
+      console.log("Registrasi berhasil:", responseData);
+  
+      // Try kedua: Mendapatkan token pembayaran
+      try {
+        const response2 = await fetch("/api/midtrans", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            order_id: orderId,
+            gross_amount: formData.payment,
+            customer_name: formData.fullname,
+            email: formData.email,
+            phone: formData.noWa,
+          }),
+        });
+  
+        if (!response2.ok) {
+          throw new Error("Gagal mendapatkan token pembayaran");
+        }
+  
+        const paymentData = await response2.json();
+  
+        if (paymentData.token) {
+          localStorage.setItem("token", paymentData.token);
+          localStorage.setItem("email", formData.email);
+          console.log("Token pembayaran berhasil diterima:", paymentData.token);
+          window.snap.pay(paymentData.token);
+        } else {
+          throw new Error("Token pembayaran tidak ditemukan");
+        }
+      } catch (error) {
+        console.error("Error saat mendapatkan token pembayaran:", error);
       }
     } catch (error) {
-      console.error("Pembayaran gagal:", error);
+      console.log('error catch: ', error)
+      console.error("Error catch saat registrasi pengguna:", error);
     }
-  };
+  };  
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -234,7 +230,7 @@ const FormComponent = () => {
   };
 
   return (
-    <div className="flex flex-col items-start min-h-screen gap-3 p-4 sm:flex-row sm:justify-center sm:gap-6">
+    <div className="flex flex-col items-center min-h-screen gap-6 p-4 sm:flex-row sm:justify-center sm:items-start">
       <div className="w-full max-w-sm sm:max-w-lg bg-white p-6 rounded-lg shadow-md border">
         <h2 className="font-poppins text-2xl font-semibold text-gray-800 mb-4 text-center">
           Registration Sales
@@ -252,11 +248,6 @@ const FormComponent = () => {
               maxLength={25}
               required
             />
-            {usernameError && (
-              <small className="text-red-500 font-poppins text-sm mt-1">
-                {usernameError}
-              </small>
-            )}
             {formData.username && (
               <div className="mt-2 font-poppins flex items-center space-x-2 text-gray-600">
                 {usernameError ? (
@@ -271,14 +262,6 @@ const FormComponent = () => {
                     </p>
                   </>
                 )}
-
-                {/* Menampilkan ikon berdasarkan ketersediaan domain */}
-                {isAvailable !== null &&
-                  (isAvailable ? (
-                    <CheckCircleIcon className="w-5 h-5 text-green-500" />
-                  ) : (
-                    <XCircleIcon className="w-5 h-5 text-red-500" />
-                  ))}
               </div>
             )}
           </div>
@@ -320,17 +303,6 @@ const FormComponent = () => {
               placeholder="Enter WhatsApp number"
               required
             />
-
-            {formData.noWa && (
-              <div className="mt-2 flex items-center space-x-2 text-gray-600">
-                {!isNoWaAvailable && (
-                  <p className="text-red-500 text-sm mt-1">{noWaError}</p>
-                )}
-                {!isNoWaAvailable && (
-                  <XCircleIcon className="w-5 h-5 text-red-500" />
-                )}
-              </div>
-            )}
           </div>
 
           {/** Email */}
@@ -345,39 +317,33 @@ const FormComponent = () => {
               placeholder="Enter email"
               required
             />
-            {formData.email && (
-              <div className="mt-2 flex items-center space-x-2 text-gray-600">
-                {!isEmailAvailable && (
-                  <p className="text-red-500 text-sm mt-1">{emailError}</p>
-                )}
-                {!isEmailAvailable && (
-                  <XCircleIcon className="w-5 h-5 text-red-500" />
-                )}
-              </div>
-            )}
           </div>
         </form>
 
         <button
           type="submit"
           disabled={
-            !isAvailable ||
-            !isEmailAvailable ||
-            !isNoWaAvailable ||
-            !formData.fullname ||
-            !formData.payment
+            !formData?.email ||
+            !formData?.fullname ||
+            !formData?.username ||
+            !formData?.noWa ||
+            !formData?.payment ||
+            !formData?.password
           }
           onClick={handlePayment}
-          //   className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 rounded-md transition"
           className={`w-full font-poppins font-semibold py-3 mt-3 rounded-md transition ${
-            !isAvailable || !isEmailAvailable || !isNoWaAvailable
+            !formData?.email ||
+            !formData?.fullname ||
+            !formData?.username ||
+            !formData?.noWa ||
+            !formData?.payment ||
+            !formData?.password
               ? "bg-gray-300 text-gray-500 cursor-not-allowed"
               : "bg-blue-500 hover:bg-blue-600 text-white"
           }`}
         >
           Submit
         </button>
-        {/* </a> */}
       </div>
 
       <div className="w-full max-w-sm bg-white p-6 rounded-lg shadow-md border sm:mt-0">
