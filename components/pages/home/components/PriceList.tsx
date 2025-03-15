@@ -1,6 +1,13 @@
+"use client";
+
+import { useRouter } from "next/navigation";
+import { useAppContext } from "@/context/AppContext";
 import { pricingPackage } from "@/constants";
 
 const PriceList: React.FC = () => {
+  const { setPackageId } = useAppContext();
+  const router = useRouter()
+
   if (!pricingPackage || pricingPackage.length === 0) {
     return (
       <section id="pricingPlant" className="bg-gray-900 rounded-2xl py-12 text-center">
@@ -72,12 +79,16 @@ const PriceList: React.FC = () => {
                   </li>
                 ))}
               </ul>
-              <a
-                href={`/register?product_id=${item.id}`}
+              <button
+                onClick={() => {
+                  console.log("Navigating to /register...");
+                  setPackageId(item.id)
+                  router.push('/register')
+                }}
                 className="mt-auto block w-full py-3 px-6 text-center rounded-md text-white font-medium bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600"
               >
                 Subscribe Now
-              </a>
+              </button>
             </div>
           ))}
         </div>

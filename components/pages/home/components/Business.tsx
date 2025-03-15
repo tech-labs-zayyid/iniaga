@@ -17,8 +17,8 @@ const FeaturesCard: React.FC<FeatredCardProps> = ({ icon, title, content }) => (
       className="object-contain"
     />
     <div>
-      <h4 className="font-poppins font-semibold text-black text-lg">{title}</h4>
-      <p className="font-poppins text-gray-500 text-sm mt-1 whitespace-normal break-words">
+      <h4 className="  font-semibold text-black text-lg">{title}</h4>
+      <p className="  text-gray-500 text-sm mt-1 whitespace-normal break-words">
         {content}
       </p>
     </div>

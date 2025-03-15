@@ -24,7 +24,7 @@ const Hero: React.FC = () => {
       {/* Header Text */}
       <div className="flex-1 flex flex-col items-center xl:px-0 sm:px-16 px-6">
         <div className="w-full max-w-3xl">
-          <h1 className="font-poppins font-semibold text-[35px] sm:text-[50px] lg:text-[65px] text-white leading-tight">
+          <h1 className="font-semibold text-[35px] sm:text-[50px] lg:text-[65px] text-white leading-tight">
             Penjualan Optimal <br className="hidden sm:block" />
             <span className="text-[#247bfe]">Teknologi</span> Masa Kini
           </h1>

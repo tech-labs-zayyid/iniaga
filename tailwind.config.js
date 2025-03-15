@@ -15,7 +15,7 @@ module.exports = {
         dimBlue: "rgba(9, 151, 124, 0.1)",
       },
       fontFamily: {
-        poppins: ["Clarity City", "sans-serif"],
+        poppins: ["Plus Jakarta Sans", "sans-serif"],
       },
     },
     screens: {

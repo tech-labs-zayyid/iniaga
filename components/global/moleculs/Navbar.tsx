@@ -17,7 +17,7 @@ const Navbar: React.FC = () => {
         {navLinks.map((nav, index) => (
           <li
             key={nav.id}
-            className={`font-poppins font-normal cursor-pointer text-white ${
+            className={`  font-normal cursor-pointer text-white ${
               index === navLinks.length - 1 ? "mr-0" : "mr-10"
             }`}
           >
@@ -54,7 +54,7 @@ const Navbar: React.FC = () => {
             {navLinks.map((nav, index) => (
               <li
                 key={nav.id}
-                className={`font-poppins font-normal cursor-pointer text-[16px] text-white ${
+                className={`  font-normal cursor-pointer text-[16px] text-white ${
                   index === navLinks.length - 1 ? "mr-0" : "mb-4"
                 }`}
               >
