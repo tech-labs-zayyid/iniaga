@@ -16,7 +16,7 @@ const FeedbackCard: React.FC<FeedBackProps> = ({
       width={42}
       height={27}
     />
-    <p className="font-poppins font-normal text-[18px] leading-[32px] text-white my-10">
+    <p className="  font-normal text-[18px] leading-[32px] text-white my-10">
       {content}
     </p>
     <div className="flex flex-row">
@@ -28,10 +28,10 @@ const FeedbackCard: React.FC<FeedBackProps> = ({
         height={48}
       />
       <div className="flex flex-col ml-4">
-        <h4 className="font-poppins font-semibold text-[20px] leading-[32px] text-white">
+        <h4 className="  font-semibold text-[20px] leading-[32px] text-white">
           {name}
         </h4>
-        <p className="font-poppins font-normal text-[16px] leading-[24px] text-dimWhite">
+        <p className="  font-normal text-[16px] leading-[24px] text-dimWhite">
           {title}
         </p>
       </div>

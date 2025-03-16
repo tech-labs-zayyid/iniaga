@@ -17,7 +17,7 @@ const Navbar: React.FC = () => {
         {navLinks.map((nav, index) => (
           <li
             key={nav.id}
-            className={`font-poppins font-normal cursor-pointer text-white ${
+            className={`  font-normal cursor-pointer text-white ${
               index === navLinks.length - 1 ? "mr-0" : "mr-10"
             }`}
           >
@@ -54,7 +54,7 @@ const Navbar: React.FC = () => {
             {navLinks.map((nav, index) => (
               <li
                 key={nav.id}
-                className={`font-poppins font-normal cursor-pointer text-[16px] text-white ${
+                className={`  font-normal cursor-pointer text-[16px] text-white ${
                   index === navLinks.length - 1 ? "mr-0" : "mb-4"
                 }`}
               >
@@ -63,7 +63,7 @@ const Navbar: React.FC = () => {
             ))}
             <li className="mt-4">
               <Link
-                href="/register"
+                href="#pricingPlant"
                 className="bg-black text-white px-4 py-2 rounded-full font-semibold text-sm shadow-md hover:bg-white hover:text-black transition"
               >
                 Register
