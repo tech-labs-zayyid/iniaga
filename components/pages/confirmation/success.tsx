@@ -97,21 +97,6 @@ export default function Confirmation() {
             dikirim ke email Anda.
           </p>
 
-          {/* Payment Details */}
-          <div className="flex justify-center">
-            <div className="bg-gray-50 p-4 mt-4 rounded-lg text-left">
-              <p className="text-gray-800 font-medium">
-                📅 <strong>Tanggal:</strong> 25 Feb 2025
-              </p>
-              <p className="text-gray-800 font-medium">
-                💳 <strong>Metode:</strong> Transfer Bank
-              </p>
-              <p className="text-gray-800 font-medium">
-                💰 <strong>Total:</strong> Rp1.500.000
-              </p>
-            </div>
-          </div>
-
           {/* Action Buttons */}
           <div className="flex gap-4 mt-6">
             <a
