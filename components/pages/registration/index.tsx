@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
 import { useEffect, useState } from "react";
-import Image from 'next/image'
+import Image from "next/image";
 import Link from "next/link";
 import { icArrowRight, logoDark } from "@/public/assets";
 import { useAppContext } from "@/context/AppContext";
@@ -22,12 +22,16 @@ const FormComponent = () => {
     password: "",
     noWa: "",
     email: "",
-    payment: 0
+    payment: 0,
   });
   const [isAvailable, setIsAvailable] = useState<boolean | null>(null);
-  const [isUsernameAvailable, setIsUsernameAvailable] = useState<boolean | null>(null);
+  const [isUsernameAvailable, setIsUsernameAvailable] = useState<
+    boolean | null
+  >(null);
   const [isNoWaAvailable, setIsNoWaAvailable] = useState<boolean | null>(null);
-  const [isEmailAvailable, setIsEmailAvailable] = useState<boolean | null>(null);
+  const [isEmailAvailable, setIsEmailAvailable] = useState<boolean | null>(
+    null
+  );
 
   const [usernameError, setUsernameError] = useState("");
   const [noWaError, setNoWaError] = useState("");
@@ -36,7 +40,7 @@ const FormComponent = () => {
   const [discount, setDiscount] = useState(0);
   const [voucherApplied, setVoucherApplied] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const [dataPackage, setDataPackage] = useState<null>(null)
+  const [dataPackage, setDataPackage] = useState<any>(null);
 
   const existingUsernames: any[] = [];
   const existingNoWa: any[] = [];
@@ -67,7 +71,9 @@ const FormComponent = () => {
     }
 
     // Simulasi pengecekan ketersediaan domain (gantilah dengan API fetch jika perlu)
-    const checkAvailability = !existingUsernames.includes(formData.username.toLowerCase());
+    const checkAvailability = !existingUsernames.includes(
+      formData.username.toLowerCase()
+    );
     setIsAvailable(checkAvailability);
     setIsUsernameAvailable(checkAvailability);
   }, [formData.username]);
@@ -77,8 +83,12 @@ const FormComponent = () => {
       setIsNoWaAvailable(null);
       return;
     }
-    const checkAvailability = !existingNoWa.includes(formData.noWa.toLowerCase());
-    setNoWaError(checkAvailability ? "" : "No telephone yang anda masukan sudah terdaftar");
+    const checkAvailability = !existingNoWa.includes(
+      formData.noWa.toLowerCase()
+    );
+    setNoWaError(
+      checkAvailability ? "" : "No telephone yang anda masukan sudah terdaftar"
+    );
   }, [formData.noWa]);
 
   useEffect(() => {
@@ -86,16 +96,22 @@ const FormComponent = () => {
       setIsNoWaAvailable(null);
       return;
     }
-    const checkAvailability = !existingEmail.includes(formData.email.toLowerCase());
-    setEmailError(checkAvailability ? "" : "Email yang anda masukan sudah terdaftar");
+    const checkAvailability = !existingEmail.includes(
+      formData.email.toLowerCase()
+    );
+    setEmailError(
+      checkAvailability ? "" : "Email yang anda masukan sudah terdaftar"
+    );
   }, [formData.email]);
 
   useEffect(() => {
     if (packageId) {
-      const selectedPackage = pricingPackage.find((item) => item.id === packageId);
+      const selectedPackage = pricingPackage.find(
+        (item) => item.id === packageId
+      );
 
       if (selectedPackage) {
-        setDataPackage(selectedPackage as any)
+        setDataPackage(selectedPackage as any);
         setFormData((prevData) => ({
           ...prevData,
           payment: selectedPackage.package_price_discount ?? 0,
@@ -155,9 +171,11 @@ const FormComponent = () => {
       console.error("Data pembayaran tidak lengkap!");
       return;
     }
-  
-    const orderId = `ORDER-${Date.now()}-${Math.floor(1000 + Math.random() * 9000)}`;
-  
+
+    const orderId = `ORDER-${Date.now()}-${Math.floor(
+      1000 + Math.random() * 9000
+    )}`;
+
     try {
       const response = await fetch("/api/register", {
         method: "POST",
@@ -174,15 +192,17 @@ const FormComponent = () => {
           product_id: dataPackage?.id as any,
         }),
       });
-  
+
       if (!response.ok) {
-        const result = await response.json()
-        throw new Error(result?.message || "Gagal melakukan registrasi pengguna");
+        const result = await response.json();
+        throw new Error(
+          result?.message || "Gagal melakukan registrasi pengguna"
+        );
       }
-  
+
       const responseData = await response.json();
       console.log("Registrasi berhasil:", responseData);
-  
+
       // Try kedua: Mendapatkan token pembayaran
       try {
         const response2 = await fetch("/api/midtrans", {
@@ -196,13 +216,13 @@ const FormComponent = () => {
             phone: formData.noWa,
           }),
         });
-  
+
         if (!response2.ok) {
           throw new Error("Gagal mendapatkan token pembayaran");
         }
-  
+
         const paymentData = await response2.json();
-  
+
         if (paymentData.token) {
           localStorage.setItem("token", paymentData.token);
           localStorage.setItem("email", formData.email);
@@ -215,10 +235,10 @@ const FormComponent = () => {
         console.error("Error saat mendapatkan token pembayaran:", error);
       }
     } catch (error) {
-      console.log('error catch: ', error)
+      console.log("error catch: ", error);
       console.error("Error catch saat registrasi pengguna:", error);
     }
-  };  
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -232,7 +252,7 @@ const FormComponent = () => {
       .format(amount)
       .replace(/\./g, ","); // Ubah titik ke koma (opsional, sesuai format lokal)
   };
-  console.log(dataPackage)
+  console.log(dataPackage);
   return (
     <div className="flex flex-col items-center min-h-screen pt-[30px]">
       <Link href="/">
@@ -244,10 +264,14 @@ const FormComponent = () => {
             Create your account
           </h2>
           <small>
-            Create your sales account today. Enter your credentials below and click <span className="text-[#247bfe]">‘Create Account’</span>
+            Create your sales account today. Enter your credentials below and
+            click <span className="text-[#247bfe]">‘Create Account’</span>
           </small>
 
-          <form onSubmit={handleSubmit} className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-4">
+          <form
+            onSubmit={handleSubmit}
+            className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-4"
+          >
             <div className="relative float-label-input">
               <label className="absolute top-3 left-0 text-gray-400 pointer-events-none transition duration-200 ease-in-outbg-white px-2 text-grey-darker">
                 Username
@@ -362,7 +386,12 @@ const FormComponent = () => {
               className="w-[20px] h-auto transition-transform duration-500 mb-3 group-hover:-translate-y-1 group-hover:translate-x-1"
             />
           </button>
-          <small>Already have an account? <Link href="#cms" className="text-[#247bfe]">Log in</Link></small>
+          <small>
+            Already have an account?{" "}
+            <Link href="#cms" className="text-[#247bfe]">
+              Log in
+            </Link>
+          </small>
         </div>
 
         <div className="w-full sm:w-2/6 mb-6 bg-white p-6 rounded-lg shadow-lg border sm:mt-0">
