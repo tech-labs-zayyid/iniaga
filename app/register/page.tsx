@@ -4,4 +4,5 @@ const RegistrationPage: React.FC = () => {
   return <RegistrationComponent/>
 };
 
+
 export default RegistrationPage;
