@@ -28,7 +28,7 @@ const Navbar: React.FC = () => {
 
       <div className="hidden sm:flex">
         <Link
-          href="/register"
+          href="#pricingPlant"
           className={`ss:w-full ${component.btnPrimary}`}
         >
           Register

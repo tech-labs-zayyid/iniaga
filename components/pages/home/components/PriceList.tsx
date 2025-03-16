@@ -32,7 +32,7 @@ const PriceList: React.FC = () => {
               className="bg-gray-800 flex flex-col rounded-lg shadow-lg p-6 transform hover:scale-105 transition duration-300"
             >
               <div className="mb-8 flex gap-3">
-                <div className="w-24 h-24 bg-green-400 rounded-2xl relative overflow-hidden">
+                <div className="min-w-[6rem] h-24 bg-green-400 rounded-2xl relative overflow-hidden">
                   <div className="absolute top-0 right-0 w-12 h-12 bg-green-300 rounded-3xl"></div>
                   <div className="absolute bottom-0 left-0 w-14 h-14 bg-green-300 rounded-lg"></div>
                 </div>

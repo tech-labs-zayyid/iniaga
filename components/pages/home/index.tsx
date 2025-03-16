@@ -18,7 +18,7 @@ const Home: React.FC = () => {
           <Hero />
         </div>
       </div>
-      <div className="bg-white rounded-[50px] pt-14 ss:pt-[50px]">
+      <div className="bg-white rounded-[50px] pt-14 ss:pt-[50px] block sm:flex sm:justify-center">
         <div className={`${styles.paddingX}`}>
           <div className={`${styles.boxWidth}`}>
             <Stats />

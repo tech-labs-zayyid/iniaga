@@ -418,7 +418,7 @@ const FormComponent = () => {
                 onClick={handleApplyVoucher}
                 className={`px-6 py-3 my-6 !w-full sm:px-8 sm:py-4 ${component.btnPrimary} flex items-center justify-center gap-2 group`}
               >
-                Gunakan
+                Add Voucher
               </button>
             </div>
           ) : (
