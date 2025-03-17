@@ -24,7 +24,7 @@ import people01 from "./people01.png";
 import people02 from "./people02.png";
 import people03 from "./people03.png";
 import web from "./web.png";
-import agen from "./agen_rec.png";
+// import agen from "./agen_rec.png";
 import logo1 from "./crop_logo.png";
 import logoDark from "./ic-logo-dark.png";
 import anhar from "./anhar.jpg";
@@ -70,7 +70,7 @@ export {
   people02,
   people03,
   web,
-  agen,
+  // agen,
   logo1,
   anhar,
   boby,
