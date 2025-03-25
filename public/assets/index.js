@@ -10,7 +10,6 @@ import robot from "./robot.png";
 import send from "./Send.svg";
 import shield from "./Shield.svg";
 import star from "./Star.svg";
-import menu from "./menu.svg";
 import close from "./close.svg";
 import google from "./google.svg";
 import apple from "./apple.svg";
@@ -42,6 +41,9 @@ import icScreen3 from './screens/screen-3.png'
 // ICONS
 import icArrowRight from './icons/ic-arrow-right-up.png'
 import icRecruitment from './icons/ic-recruitment.png'
+import icMenuOpen from './icons/ic-menu-open.svg'
+import icMenuClose from './icons/ic-menu-close.svg'
+import icChevronRight from './icons/ic-chevron-right-white.svg'
 
 export {
   airbnb,
@@ -56,7 +58,6 @@ export {
   send,
   shield,
   star,
-  menu,
   close,
   google,
   apple,
@@ -83,5 +84,8 @@ export {
   icScreen2,
   icScreen3,
   icArrowRight,
-  icRecruitment
+  icRecruitment,
+  icMenuOpen,
+  icMenuClose,
+  icChevronRight
 };
