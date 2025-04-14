@@ -7,6 +7,7 @@ import { icArrowRight, logoDark } from "@/public/assets";
 import { useAppContext } from "@/context/AppContext";
 import { pricingPackage } from "@/constants";
 import { component } from "@/styles/style";
+import { API_KEY } from "@config";
 
 declare global {
   interface Window {
@@ -77,7 +78,7 @@ const FormComponent = () => {
     setIsAvailable(checkAvailability);
     setIsUsernameAvailable(checkAvailability);
   }, [formData.username]);
-
+  console.log(API_KEY, "apikey");
   useEffect(() => {
     if (!formData.noWa || noWaError) {
       setIsNoWaAvailable(null);
@@ -119,7 +120,7 @@ const FormComponent = () => {
       }
     }
   }, [packageId]);
-
+  console.log(pricingPackage, "packkage");
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
@@ -150,12 +151,12 @@ const FormComponent = () => {
       [name]: value,
     }));
   };
-
+  // console.log(window.location.hostname, "url");
   useEffect(() => {
     // Tambahkan Midtrans Snap Script
     const script = document.createElement("script");
     script.src = "https://app.sandbox.midtrans.com/snap/snap.js";
-    script.setAttribute("data-client-key", "SB-Mid-client-3B3nT-4COo92eu5T");
+    script.setAttribute("data-client-key", API_KEY);
     document.body.appendChild(script);
   }, []);
 
@@ -188,7 +189,8 @@ const FormComponent = () => {
           username: formData.username,
           whatsapp_number: formData.noWa,
           order_id: orderId,
-          gross_amount: formData.payment,
+          // gross_amount: formData.payment,
+          gross_amount: 2000,
           product_id: dataPackage?.id as any,
         }),
       });
