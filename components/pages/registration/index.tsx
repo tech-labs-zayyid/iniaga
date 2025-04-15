@@ -1,264 +1,50 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { icArrowRight, logoDark } from "@/public/assets";
-import { useAppContext } from "@/context/AppContext";
-import { pricingPackage } from "@/constants";
 import { component } from "@/styles/style";
-import { API_KEY } from "@config";
+import { formatRupiah } from "@/utils/general"
+import Toast from "@/components/global/atoms/Toast";
+import { RegisterProvider, useRegisterContext } from "@/context/RegistrationContext";
 
-declare global {
-  interface Window {
-    snap: any;
-  }
-}
+
 const FormComponent = () => {
-  const { packageId } = useAppContext();
-
-  const [formData, setFormData] = useState({
-    username: "",
-    fullname: "",
-    password: "",
-    noWa: "",
-    email: "",
-    payment: 0,
-  });
-  const [isAvailable, setIsAvailable] = useState<boolean | null>(null);
-  const [isUsernameAvailable, setIsUsernameAvailable] = useState<
-    boolean | null
-  >(null);
-  const [isNoWaAvailable, setIsNoWaAvailable] = useState<boolean | null>(null);
-  const [isEmailAvailable, setIsEmailAvailable] = useState<boolean | null>(
-    null
-  );
-
-  const [usernameError, setUsernameError] = useState("");
-  const [noWaError, setNoWaError] = useState("");
-  const [emailError, setEmailError] = useState("");
-  const [voucher, setVoucher] = useState("");
-  const [discount, setDiscount] = useState(0);
-  const [voucherApplied, setVoucherApplied] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
-  const [dataPackage, setDataPackage] = useState<any>(null);
-
-  const existingUsernames: any[] = [];
-  const existingNoWa: any[] = [];
-  const existingEmail: any[] = [];
-
-  const handleApplyVoucher = () => {
-    if (voucher === "DISKON50") {
-      setDiscount(50000);
-      setVoucherApplied(true);
-    } else {
-      setDiscount(0);
-      setErrorMessage("Kode voucher tidak valid!");
-    }
-  };
-
-  const handleRemoveVoucher = () => {
-    setDiscount(0);
-    setVoucher("");
-    setVoucherApplied(false); // Tampilkan kembali input voucher
-    setErrorMessage("");
-  };
-
-  useEffect(() => {
-    if (!formData.username || usernameError) {
-      setIsAvailable(null);
-      setIsUsernameAvailable(null);
-      return;
-    }
-
-    // Simulasi pengecekan ketersediaan domain (gantilah dengan API fetch jika perlu)
-    const checkAvailability = !existingUsernames.includes(
-      formData.username.toLowerCase()
-    );
-    setIsAvailable(checkAvailability);
-    setIsUsernameAvailable(checkAvailability);
-  }, [formData.username]);
-  console.log(API_KEY, "apikey");
-  useEffect(() => {
-    if (!formData.noWa || noWaError) {
-      setIsNoWaAvailable(null);
-      return;
-    }
-    const checkAvailability = !existingNoWa.includes(
-      formData.noWa.toLowerCase()
-    );
-    setNoWaError(
-      checkAvailability ? "" : "No telephone yang anda masukan sudah terdaftar"
-    );
-  }, [formData.noWa]);
-
-  useEffect(() => {
-    if (!formData.email || emailError) {
-      setIsNoWaAvailable(null);
-      return;
-    }
-    const checkAvailability = !existingEmail.includes(
-      formData.email.toLowerCase()
-    );
-    setEmailError(
-      checkAvailability ? "" : "Email yang anda masukan sudah terdaftar"
-    );
-  }, [formData.email]);
-
-  useEffect(() => {
-    if (packageId) {
-      const selectedPackage = pricingPackage.find(
-        (item) => item.id === packageId
-      );
-
-      if (selectedPackage) {
-        setDataPackage(selectedPackage as any);
-        setFormData((prevData) => ({
-          ...prevData,
-          payment: selectedPackage.package_price_discount ?? 0,
-        }));
-      }
-    }
-  }, [packageId]);
-  console.log(pricingPackage, "packkage");
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-
-    if (name === "noWa") {
-      const regex = /^08\d{8,11}$/;
-      if (!regex.test(value) && value !== "") {
-        setNoWaError("Masukkan nomor yang valid (08xxxxxxxxxx)");
-      } else {
-        setNoWaError("");
-      }
-    }
-    if (name === "username") {
-      const usernameRegex = /^[a-zA-Z0-9]{1,25}$/;
-
-      if (value.length > 20) {
-        setUsernameError("Username maksimal 20 karakter");
-      } else if (!usernameRegex.test(value)) {
-        setUsernameError(
-          "Username hanya boleh huruf dan angka (tanpa spasi atau simbol)"
-        );
-      } else {
-        setUsernameError(""); // Reset error jika valid
-      }
-    }
-
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-  // console.log(window.location.hostname, "url");
-  useEffect(() => {
-    // Tambahkan Midtrans Snap Script
-    const script = document.createElement("script");
-    script.src = "https://app.sandbox.midtrans.com/snap/snap.js";
-    script.setAttribute("data-client-key", API_KEY);
-    document.body.appendChild(script);
-  }, []);
-
-  const handlePayment = async () => {
-    if (
-      !formData?.email ||
-      !formData?.fullname ||
-      !formData?.username ||
-      !formData?.noWa ||
-      !formData?.payment ||
-      !formData?.password
-    ) {
-      console.error("Data pembayaran tidak lengkap!");
-      return;
-    }
-
-    const orderId = `ORDER-${Date.now()}-${Math.floor(
-      1000 + Math.random() * 9000
-    )}`;
-
-    try {
-      const response = await fetch("/api/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: formData.email,
-          name: formData.fullname,
-          password: formData.password,
-          role: "sales",
-          username: formData.username,
-          whatsapp_number: formData.noWa,
-          order_id: orderId,
-          // gross_amount: formData.payment,
-          gross_amount: 2000,
-          product_id: dataPackage?.id as any,
-        }),
-      });
-
-      if (!response.ok) {
-        const result = await response.json();
-        throw new Error(
-          result?.message || "Gagal melakukan registrasi pengguna"
-        );
-      }
-
-      const responseData = await response.json();
-      console.log("Registrasi berhasil:", responseData);
-
-      // Try kedua: Mendapatkan token pembayaran
-      try {
-        const response2 = await fetch("/api/midtrans", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            order_id: orderId,
-            gross_amount: formData.payment,
-            customer_name: formData.fullname,
-            email: formData.email,
-            phone: formData.noWa,
-          }),
-        });
-
-        if (!response2.ok) {
-          throw new Error("Gagal mendapatkan token pembayaran");
-        }
-
-        const paymentData = await response2.json();
-
-        if (paymentData.token) {
-          localStorage.setItem("token", paymentData.token);
-          localStorage.setItem("email", formData.email);
-          console.log("Token pembayaran berhasil diterima:", paymentData.token);
-          window.snap.pay(paymentData.token);
-        } else {
-          throw new Error("Token pembayaran tidak ditemukan");
-        }
-      } catch (error) {
-        console.error("Error saat mendapatkan token pembayaran:", error);
-      }
-    } catch (error) {
-      console.log("error catch: ", error);
-      console.error("Error catch saat registrasi pengguna:", error);
-    }
-  };
+  const {
+    formData,
+    setFormData,
+    usernameError,
+    noWaError,
+    voucher,
+    discount,
+    voucherApplied,
+    errorMessage,
+    dataPackage,
+    handleChange,
+    handleApplyVoucher,
+    handleRemoveVoucher,
+    handlePayment,
+    setVoucher,
+    hideToast,
+    toast,
+    isLoading
+  } = useRegisterContext();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Form Data:", formData);
   };
 
-  const formatRupiah = (amount: number) => {
-    return new Intl.NumberFormat("id-ID", {
-      minimumFractionDigits: 0,
-    })
-      .format(amount)
-      .replace(/\./g, ","); // Ubah titik ke koma (opsional, sesuai format lokal)
-  };
-  console.log(dataPackage);
   return (
     <div className="flex flex-col items-center min-h-screen pt-[30px]">
       <Link href="/">
-        <Image src={logoDark} priority alt="Iniaga" width={184} height={90} />
+        <Image
+          src={logoDark}
+          priority
+          alt="Iniaga" 
+          width={184}
+          height={90}
+        />
       </Link>
       <div className="flex flex-col items-center min-h-screen w-full sm:w-4/5 gap-6 sm:gap-12 pt-[50px] sm:pt-[90px] px-6 sm:px-16 sm:flex-row sm:justify-center sm:items-start">
         <div className="w-full sm:w-7/12 bg-white">
@@ -282,7 +68,7 @@ const FormComponent = () => {
                 type="text"
                 name="username"
                 placeholder=" "
-                className="block w-full bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-md py-3 px-3 block appearance-none leading-normal focus:border-blue-400"
+                className="block w-full bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-md py-3 px-3 appearance-none leading-normal focus:border-blue-400"
                 value={formData.username}
                 onChange={handleChange}
                 maxLength={25}
@@ -315,7 +101,7 @@ const FormComponent = () => {
                 name="fullname"
                 value={formData.fullname}
                 onChange={handleChange}
-                className="block w-full bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-md py-3 px-3 block appearance-none leading-normal focus:border-blue-400"
+                className="block w-full bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-md py-3 px-3 appearance-none leading-normal focus:border-blue-400"
                 placeholder=""
                 required
               />
@@ -330,7 +116,7 @@ const FormComponent = () => {
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
-                className="block w-full bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-md py-3 px-3 block appearance-none leading-normal focus:border-blue-400"
+                className="block w-full bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-md py-3 px-3 appearance-none leading-normal focus:border-blue-400"
                 placeholder=""
                 required
               />
@@ -345,7 +131,7 @@ const FormComponent = () => {
                 name="noWa"
                 value={formData.noWa}
                 onChange={handleChange}
-                className="block w-full bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-md py-3 px-3 block appearance-none leading-normal focus:border-blue-400"
+                className="block w-full bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-md py-3 px-3 appearance-none leading-normal focus:border-blue-400"
                 placeholder=""
                 required
               />
@@ -361,7 +147,7 @@ const FormComponent = () => {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className="block w-full bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-md py-3 px-3 block appearance-none leading-normal focus:border-blue-400"
+                className="block w-full bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-md py-3 px-3 appearance-none leading-normal focus:border-blue-400"
                 placeholder=""
                 required
               />
@@ -376,17 +162,24 @@ const FormComponent = () => {
               !formData?.username ||
               !formData?.noWa ||
               !formData?.payment ||
-              !formData?.password
+              !formData?.password ||
+              isLoading
             }
             onClick={handlePayment}
-            className={`px-6 py-3 my-6 !w-full sm:px-8 sm:py-4 ${component.btnPrimary} flex items-center justify-center gap-2 group`}
+            className={`px-6 py-3 my-6 !w-full sm:px-8 sm:py-4 ${component.btnPrimary} ${isLoading ? '!bg-[#0056d7]' : ''} flex items-center justify-center gap-2 group`}
           >
-            <span className="text-[16px] leading-[32px]">Create Account</span>
-            <Image
-              src={icArrowRight}
-              alt="arrow"
-              className="w-[20px] h-auto transition-transform duration-500 mb-3 group-hover:-translate-y-1 group-hover:translate-x-1"
-            />
+            {
+              isLoading ? <span className="text-[16px] leading-[32px]">Loading...</span> : (
+                <>
+                  <span className="text-[16px] leading-[32px]">Create Account</span>
+                  <Image
+                    src={icArrowRight}
+                    alt="arrow"
+                    className="w-[20px] h-auto transition-transform duration-500 mb-3 group-hover:-translate-y-1 group-hover:translate-x-1"
+                  />
+                </>
+              )
+            }
           </button>
           <small>
             Already have an account?{" "}
@@ -411,10 +204,10 @@ const FormComponent = () => {
                 value={voucher}
                 onChange={(e) => setVoucher(e.target.value)}
                 placeholder=""
-                className="block w-full bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-md py-3 px-3 block appearance-none leading-normal focus:border-blue-400"
+                className="block w-full bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-md py-3 px-3 appearance-none leading-normal focus:border-blue-400"
               />
               {errorMessage && (
-                <p className="text-red-500   text-sm mt-2">{errorMessage}</p> // Alert error muncul di bawah input
+                <p className="text-red-500 text-sm mt-2">{errorMessage}</p>
               )}
               <button
                 onClick={handleApplyVoucher}
@@ -460,8 +253,19 @@ const FormComponent = () => {
           </div>
         </div>
       </div>
+      {toast && (
+        <Toast message={toast.message} type={toast.type} onClose={hideToast} />
+      )}
     </div>
   );
 };
 
-export default FormComponent;
+const FormRegistration = () => {
+  return (
+    <RegisterProvider>
+      <FormComponent />
+    </RegisterProvider>
+  )
+}
+
+export default FormRegistration;
