@@ -1,6 +1,6 @@
 "use client";
 
-import { close, logo1, menu } from "@/public/assets";
+import { logo1 } from "@/public/assets";
 import { useEffect, useState } from "react";
 import Image from "next/image"; // Correct import for Image
 

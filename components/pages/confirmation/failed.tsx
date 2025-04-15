@@ -1,4 +1,4 @@
-import { close, logo1, menu } from "@/public/assets";
+import { logo1 } from "@/public/assets";
 import Image from "@node_modules/next/image";
 
 export default function PaymentFailed() {
